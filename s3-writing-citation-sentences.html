@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Step 3 Extended Practice – Writing Citation Sentence</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{
+  --bg1:#fff9f0;
+  --bg2:#f0f9ff;
+  --bg3:#f0fdf4;
+  --bg4:#fffef0;
+  --accent:#ff8c00;
+  --accent-2:#ffb347;
+  --accent-light:#ffd699;
+  --blue:#3b82f6;
+  --blue-light:#dbeafe;
+  --green:#10b981;
+  --green-light:#d1fae5;
+  --yellow:#fbbf24;
+  --yellow-light:#fef3c7;
+  --pink:#ec4899;
+  --ink:#4a2c2a;
+  --ink-light:#6e5a52;
+  --muted:#8b7355;
+  --card-bg: rgba(255,255,255,0.96);
+  --shadow: 0 10px 30px rgba(74,44,42,0.1);
+  --shadow-soft: 0 4px 12px rgba(74,44,42,0.08);
+  --radius: 18px;
+  --success:#10b981;
+  --success-bg:#d1fae5;
+  --success-border:#6ee7b7;
+  --error:#dc2626;
+  --error-bg:#fee2e2;
+  --error-border:#fca5a5;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;}
+body{
+  font-family:'Poppins',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(135deg,#fffef9,#fafcff 50%,#fdfff7);
+  padding:clamp(12px,3vw,20px);
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:900px;
+  margin:0 auto;
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(16px,4vw,40px);
+  min-height:calc(100vh - 40px);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:clamp(20px,4vw,24px);
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.82rem;
+  background:linear-gradient(135deg,var(--blue-light),var(--yellow-light));
+  color:var(--blue);
+  margin-bottom:10px;
+  border:1px solid rgba(59,130,246,0.25);
+}
+
+h1{
+  font-size:clamp(1.5rem,4vw,2.2rem);
+  margin:0 0 12px;
+  color:var(--accent);
+  font-weight:700;
+  line-height:1.2;
+}
+
+.intro{
+  font-size:clamp(0.95rem,2.5vw,1.05rem);
+  color:var(--ink-light);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.exercise-page{
+  display:none;
+}
+
+.exercise-page.active{
+  display:block;
+  animation:fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:none;}
+}
+
+.block{
+  background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,252,255,0.95));
+  border:1px solid rgba(59,130,246,0.12);
+  padding:clamp(16px,3.5vw,28px);
+  border-radius:15px;
+  box-shadow:var(--shadow-soft);
+  margin-bottom:20px;
+}
+
+h2{
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
+  margin:0 0 12px;
+  color:var(--ink);
+  font-weight:700;
+}
+
+h3{
+  font-size:clamp(1rem,2.8vw,1.3rem);
+  margin:14px 0 10px;
+  color:var(--ink);
+  font-weight:600;
+}
+
+h4{
+  font-size:clamp(0.9rem,2.3vw,1rem);
+  margin:12px 0 8px;
+}
+
+p{margin:0 0 1rem;line-height:1.6;}
+
+.small{font-size:clamp(0.85rem,2.2vw,0.9rem);color:var(--muted);line-height:1.5;}
+
+.data-box{
+  background:#fff;
+  border:2px solid rgba(59,130,246,0.2);
+  border-radius:12px;
+  padding:16px;
+  margin:14px 0;
+  box-shadow:var(--shadow-soft);
+}
+
+.data-box h4{
+  margin:0 0 12px;
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.data-item{
+  padding:8px 12px;
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  border-radius:8px;
+  margin:6px 0;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  border:1px solid rgba(59,130,246,0.15);
+}
+
+.sentence-builder{
+  background:#fff;
+  border:3px dashed var(--blue);
+  border-radius:12px;
+  padding:16px;
+  margin:14px 0;
+  min-height:100px;
+}
+
+.sentence-builder.filled{
+  border-style:solid;
+  background:linear-gradient(135deg,rgba(59,130,246,0.05),#fff);
+}
+
+.dropdown-sentence{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  line-height:2;
+}
+
+.dropdown-sentence select{
+  padding:6px 12px;
+  border:2px solid rgba(59,130,246,0.3);
+  border-radius:8px;
+  font-family:inherit;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+  cursor:pointer;
+  background:#fff;
+  min-width:150px;
+  max-width:100%;
+  transition:all .25s ease;
+}
+
+.dropdown-sentence select:focus{
+  outline:none;
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(59,130,246,0.15);
+}
+
+.dropdown-sentence select.correct{
+  border-color:var(--success);
+  background:var(--success-bg);
+}
+
+.dropdown-sentence select.incorrect{
+  border-color:var(--error);
+  background:var(--error-bg);
+}
+
+.word-chip{
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  border:2px solid rgba(59,130,246,0.25);
+  border-radius:20px;
+  padding:8px 14px;
+  font-size:clamp(0.82rem,2.2vw,0.9rem);
+  cursor:pointer;
+  transition:all .25s ease;
+  user-select:none;
+  display:inline-block;
+  margin:4px;
+}
+
+.word-chip:hover{
+  box-shadow:0 4px 12px rgba(59,130,246,0.2);
+  transform:translateY(-2px);
+}
+
+.word-chip.selected{
+  background:linear-gradient(135deg,var(--accent-light),var(--accent));
+  border-color:var(--accent);
+  color:#fff;
+  font-weight:600;
+}
+
+.word-chip.correct{
+  background:var(--success-bg);
+  border-color:var(--success);
+  color:#065f46;
+  font-weight:600;
+  cursor:default;
+}
+
+.word-chip.incorrect{
+  background:var(--error-bg);
+  border-color:var(--error);
+  color:var(--error);
+  font-weight:600;
+  cursor:default;
+}
+
+.btn{
+  appearance:none;cursor:pointer;
+  border:1px solid rgba(59,130,246,0.15);
+  background:#fff;
+  padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,22px);
+  border-radius:12px;
+  font-weight:600;
+  color:var(--ink);
+  box-shadow:var(--shadow-soft);
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-family:'Poppins',system-ui,sans-serif;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(59,130,246,0.15);
+  border-color:var(--blue);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--pink),var(--blue));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 10px 28px rgba(236,72,153,0.3);
+}
+
+.btn.primary:hover{
+  box-shadow:0 12px 32px rgba(236,72,153,0.4);
+  transform:translateY(-3px);
+}
+
+.btn.secondary{
+  background:var(--blue-light);
+  color:var(--blue);
+  border-color:var(--blue);
+}
+
+.btn.restart{
+  background:var(--yellow-light);
+  color:#92400e;
+  border-color:var(--yellow);
+}
+
+.btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none !important;
+  display:none;
+}
+
+.feedback{
+  margin-top:14px;
+  padding:12px 16px;
+  border-radius:10px;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-weight:600;
+  display:none;
+  line-height:1.5;
+}
+
+.feedback.show{
+  display:block;
+  animation:slideIn .3s ease;
+}
+
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(-5px);}
+  to{opacity:1;transform:none;}
+}
+
+.feedback.good{
+  background:var(--success-bg);
+  color:#065f46;
+  border:2px solid var(--success-border);
+}
+
+.feedback.bad{
+  background:var(--error-bg);
+  color:var(--error);
+  border:2px solid var(--error-border);
+}
+
+.feedback.info{
+  background:var(--blue-light);
+  color:#1e40af;
+  border:2px solid var(--blue);
+}
+
+.callout{
+  border-left:5px solid var(--blue);
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  padding:12px 14px;
+  border-radius:12px;
+  margin:14px 0;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+  box-shadow:var(--shadow-soft);
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.callout.tip{
+  border-left-color:var(--yellow);
+  background:linear-gradient(135deg,var(--yellow-light),#fffbeb);
+}
+
+.callout ul{
+  margin:8px 0 0;
+  padding-left:1.3em;
+}
+
+.progress-tracker{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(8px,2vw,16px);
+  background:linear-gradient(135deg,var(--green-light),var(--blue-light));
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow-soft);
+  flex-wrap:wrap;
+}
+
+.progress-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  font-size:0.75rem;
+  font-weight:600;
+  color:var(--muted);
+  text-align:center;
+}
+
+.progress-item.complete{
+  color:var(--green);
+}
+
+.progress-item.current{
+  color:var(--blue);
+}
+
+.progress-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink:0;
+}
+
+.progress-item.current .progress-icon{
+  border:3px solid var(--blue);
+  box-shadow:0 0 0 4px rgba(59,130,246,0.15);
+}
+
+.nav-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.nav-buttons .btn{
+  flex:1;
+  min-width:120px;
+}
+
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--blue);
+  font-weight:600;
+  text-decoration:none;
+  margin-top:24px;
+  padding:10px 16px;
+  border-radius:10px;
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+}
+
+.back-link:hover{
+  background:var(--blue-light);
+  transform:translateX(-4px);
+}
+
+@media(max-width:640px){
+  .progress-tracker{
+    gap:8px;
+  }
+  
+  .progress-item span{
+    font-size:0.7rem;
+  }
+  
+  .nav-buttons{
+    flex-direction:column;
+  }
+  
+  .nav-buttons .btn{
+    width:100%;
+  }
+  
+  .dropdown-sentence{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  
+  .dropdown-sentence select{
+    width:100%;
+    max-width:100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span class="badge">Step 3: Extended Practice</span>
+    <h1>✍️ Writing Citation Sentences</h1>
+    <p class="intro">Complete 5 exercises to master writing full citation sentences</p>
+  </div>
+
+  <div class="progress-tracker" id="progressTracker">
+    <div class="progress-item current" id="prog1">
+      <div class="progress-icon">1</div>
+      <span>Survey 1</span>
+    </div>
+    <div class="progress-item" id="prog2">
+      <div class="progress-icon">2</div>
+      <span>Survey 2</span>
+    </div>
+    <div class="progress-item" id="prog3">
+      <div class="progress-icon">3</div>
+      <span>Feedback 1</span>
+    </div>
+    <div class="progress-item" id="prog4">
+      <div class="progress-icon">4</div>
+      <span>Feedback 2</span>
+    </div>
+    <div class="progress-item" id="prog5">
+      <div class="progress-icon">5</div>
+      <span>Mixed</span>
+    </div>
+  </div>
+
+  <!-- EXERCISE 1 -->
+  <div class="exercise-page active" data-page="1">
+    <div class="block">
+      <h2>Exercise 1: Restaurant Survey</h2>
+      <p class="small">Use the data below to build a complete citation sentence by selecting the correct options.</p>
+      
+      <div class="data-box">
+        <h4>📊 Survey Data</h4>
+        <div class="data-item"><strong>Source:</strong> Customer satisfaction survey</div>
+        <div class="data-item"><strong>Date:</strong> December 2025</div>
+        <div class="data-item"><strong>Finding:</strong> 85% - customers were unhappy with waiting time</div>
+      </div>
+
+      <div class="sentence-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Build your sentence:</p>
+        <div class="dropdown-sentence">
+          <select id="ex1_part1">
+            <option value="">-- select --</option>
+            <option value="correct">According to</option>
+            <option value="wrong1">Comments from</option>
+            <option value="wrong2">Many people said</option>
+          </select>
+          <span>the customer satisfaction survey</span>
+          <select id="ex1_part2">
+            <option value="">-- select --</option>
+            <option value="correct">(December 2025),</option>
+            <option value="wrong1">(last year),</option>
+            <option value="wrong2">recently,</option>
+          </select>
+          <select id="ex1_part3">
+            <option value="">-- select --</option>
+            <option value="correct">slightly more than four-fifths</option>
+            <option value="wrong1">most customers</option>
+            <option value="wrong2">a lot of people</option>
+          </select>
+          <select id="ex1_part4">
+            <option value="">-- select --</option>
+            <option value="correct">(85%)</option>
+            <option value="wrong1">(around 85%)</option>
+            <option value="wrong2">(85 percent)</option>
+          </select>
+          <span>of the customers were unhappy with waiting time.</span>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx1" style="width:100%;">Check My Sentence</button>
+      <div class="feedback" id="feedbackEx1"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)" disabled>← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="exercise-page" data-page="2">
+    <div class="block">
+      <h2>Exercise 2: Staff Training Survey</h2>
+      <p class="small">Build a citation sentence using the data provided.</p>
+      
+      <div class="data-box">
+        <h4>📊 Survey Data</h4>
+        <div class="data-item"><strong>Source:</strong> Staff satisfaction survey</div>
+        <div class="data-item"><strong>Date:</strong> November 2025</div>
+        <div class="data-item"><strong>Finding:</strong> 66% - want more training opportunities</div>
+      </div>
+
+      <div class="sentence-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Build your sentence:</p>
+        <div class="dropdown-sentence">
+          <select id="ex2_part1">
+            <option value="">-- select --</option>
+            <option value="correct">Based on</option>
+            <option value="wrong1">Several staff said</option>
+            <option value="wrong2">I think</option>
+          </select>
+          <span>the staff satisfaction survey</span>
+          <select id="ex2_part2">
+            <option value="">-- select --</option>
+            <option value="wrong1">conducted recently,</option>
+            <option value="correct">(November 2025),</option>
+            <option value="wrong2">last month,</option>
+          </select>
+          <select id="ex2_part3">
+            <option value="">-- select --</option>
+            <option value="wrong1">most staff</option>
+            <option value="correct">around two-thirds</option>
+            <option value="wrong2">many employees</option>
+          </select>
+          <select id="ex2_part4">
+            <option value="">-- select --</option>
+            <option value="wrong1">(66 percent)</option>
+            <option value="correct">(66%)</option>
+            <option value="wrong2">(about 66%)</option>
+          </select>
+          <span>of our staff want more training opportunities.</span>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx2" style="width:100%;">Check My Sentence</button>
+      <div class="feedback" id="feedbackEx2"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3 -->
+  <div class="exercise-page" data-page="3">
+    <div class="block">
+      <h2>Exercise 3: Customer Forum Comments</h2>
+      <p class="small">Build a citation sentence for feedback data.</p>
+      
+      <div class="data-box">
+        <h4>💬 Feedback Data</h4>
+        <div class="data-item"><strong>Source:</strong> Online customer forum</div>
+        <div class="data-item"><strong>Finding:</strong> Customers complained about slow delivery</div>
+      </div>
+
+      <div class="sentence-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Build your sentence:</p>
+        <div class="dropdown-sentence">
+          <select id="ex3_part1">
+            <option value="">-- select --</option>
+            <option value="wrong1">According to the survey,</option>
+            <option value="correct">Comments from</option>
+            <option value="wrong2">Many people think</option>
+          </select>
+          <span>the online customer forum</span>
+          <select id="ex3_part2">
+            <option value="">-- select --</option>
+            <option value="correct">show that</option>
+            <option value="wrong1">said that</option>
+            <option value="wrondg2">indicates that</option>
+          </select>
+          <span>customers</span>
+          <select id="ex3_part3">
+            <option value="">-- select --</option>
+            <option value="wrong1">were unhappy with</option>
+            <option value="correct">complained about</option>
+            <option value="wrong2">mentioned</option>
+          </select>
+          <span>slow delivery.</span>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx3" style="width:100%;">Check My Sentence</button>
+      <div class="feedback" id="feedbackEx3"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(2)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 4 -->
+  <div class="exercise-page" data-page="4">
+    <div class="block">
+      <h2>Exercise 4: Product Feedback</h2>
+      <p class="small">Build a citation sentence for customer feedback.</p>
+      
+      <div class="data-box">
+        <h4>💬 Feedback Data</h4>
+        <div class="data-item"><strong>Source:</strong> Customer feedback forms</div>
+        <div class="data-item"><strong>Finding:</strong> Several customers mentioned that the product quality was poor</div>
+      </div>
+
+      <div class="sentence-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Build your sentence:</p>
+        <div class="dropdown-sentence">
+          <select id="ex4_part1">
+            <option value="">-- select --</option>
+            <option value="correct">Feedback from</option>
+            <option value="wrong1">The survey shows</option>
+            <option value="wrong2">Most people said</option>
+          </select>
+          <span>the customer feedback forms</span>
+          <select id="ex4_part2">
+            <option value="">-- select --</option>
+            <option value="wrong1">indicated that</option>
+            <option value="correct">reveals that</option>
+            <option value="wrong2">showed that</option>
+          </select>
+          <select id="ex4_part3">
+            <option value="">-- select --</option>
+            <option value="wrong1">many customers</option>
+            <option value="correct">several customers</option>
+            <option value="wrong2">some people</option>
+          </select>
+          <select id="ex4_part4">
+            <option value="">-- select --</option>
+            <option value="wrong1">complained that</option>
+            <option value="correct">mentioned that</option>
+            <option value="wrong2">said that</option>
+          </select>
+          <span>the product quality was poor.</span>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx4" style="width:100%;">Check My Sentence</button>
+      <div class="feedback" id="feedbackEx4"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(3)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 5 -->
+  <div class="exercise-page" data-page="5">
+    <div class="block">
+      <h2>Exercise 5: Mixed Data</h2>
+      <p class="small">Build TWO sentences - one for survey data and one for feedback data.</p>
+      
+      <div class="data-box">
+        <h4>📊 Survey Data</h4>
+        <div class="data-item"><strong>Source:</strong> Hotel guest survey</div>
+        <div class="data-item"><strong>Date:</strong> October 2025</div>
+        <div class="data-item"><strong>Finding:</strong> 70% of guests were satisfied with room cleanliness</div>
+      </div>
+
+      <div class="sentence-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Sentence 1 (Survey):</p>
+        <div class="dropdown-sentence">
+          <select id="ex5_part1">
+            <option value="">-- select --</option>
+            <option value="correct">According to</option>
+            <option value="wrong1">Comments from</option>
+            <option value="wrong2">Feedback shows</option>
+          </select>
+          <span>the hotel guest survey</span>
+          <select id="ex5_part2">
+            <option value="">-- select --</option>
+            <option value="correct">(October 2025),</option>
+            <option value="wrong1">conducted recently,</option>
+            <option value="wrong2">last month,</option>
+          </select>
+          <select id="ex5_part3">
+            <option value="">-- select --</option>
+            <option value="correct">seven out of ten</option>
+            <option value="wrong1">most guests</option>
+            <option value="wrong2">many customers</option>
+          </select>
+          <select id="ex5_part4">
+            <option value="">-- select --</option>
+            <option value="correct">(70%)</option>
+            <option value="wrong1">(70 percent)</option>
+            <option value="wrong2">(about 70%)</option>
+          </select>
+          <span>of guests were satisfied with room cleanliness.</span>
+        </div>
+      </div>
+
+      <div class="data-box" style="margin-top:20px;">
+        <h4>💬 Feedback Data</h4>
+        <div class="data-item"><strong>Source:</strong> Hotel suggestion box</div>
+        <div class="data-item"><strong>Finding:</strong> Guests complained that breakfast started too late</div>
+      </div>
+
+      <div class="sentence-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Sentence 2 (Feedback):</p>
+        <div class="dropdown-sentence">
+          <select id="ex5_part5">
+            <option value="">-- select --</option>
+            <option value="wrong1">The survey shows</option>
+            <option value="correct">Comments from</option>
+            <option value="wrong2">According to</option>
+          </select>
+          <span>the hotel suggestion box</span>
+          <select id="ex5_part6">
+            <option value="">-- select --</option>
+            <option value="correct">show that</option>
+            <option value="wrong1">indicate that</option>
+            <option value="wrong2">revealed that</option>
+          </select>
+          <span>guests</span>
+          <select id="ex5_part7">
+            <option value="">-- select --</option>
+            <option value="correct">complained that</option>
+            <option value="wrong1">mentioned that</option>
+            <option value="wrong2">said that</option>
+          </select>
+          <span>breakfast started too late.</span>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx5" style="width:100%;">Check Both Sentences</button>
+      <div class="feedback" id="feedbackEx5"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(4)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- COMPLETION PAGE -->
+  <div class="exercise-page" data-page="complete">
+    <div class="block">
+      <h2 style="color:var(--success);text-align:center;">🎉 All Exercises Completed!</h2>
+      <p style="text-align:center;font-size:clamp(1rem,2.5vw,1.1rem);margin:20px 0;">You've mastered writing citation sentences!</p>
+      
+      <div class="callout tip">
+        <h3>✅ What you've learned:</h3>
+        <ul>
+          <li>Write complete survey citation sentences</li>
+          <li>Write complete feedback citation sentences</li>
+          <li>Use correct date formats (Month YYYY)</li>
+          <li>Express percentages in words and numbers</li>
+          <li>Choose appropriate citation phrases</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn primary" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="window.close()">✓ Finish</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">
+    <span>←</span>
+    <span>Back to Main Guide</span>
+  </a>
+</div>
+
+<script>
+let completedExercises = new Set();
+let currentPage = 1;
+
+function fireConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function fireBigConfetti() {
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.5 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function updateProgress(exerciseNum) {
+  const progItem = document.getElementById('prog' + exerciseNum);
+  progItem.classList.add('complete');
+  progItem.classList.remove('current');
+  progItem.querySelector('.progress-icon').textContent = '✓';
+  
+  completedExercises.add(exerciseNum);
+  
+  setTimeout(fireConfetti, 300);
+  
+  if (completedExercises.size === 5) {
+    setTimeout(() => {
+      goToPage('complete');
+      fireBigConfetti();
+    }, 1500);
+  }
+}
+
+function goToPage(pageNum) {
+  document.querySelectorAll('.exercise-page').forEach(page => {
+    page.classList.remove('active');
+  });
+  
+  const targetPage = document.querySelector(`[data-page="${pageNum}"]`);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    currentPage = pageNum;
+    
+    document.querySelectorAll('.progress-item').forEach((item, index) => {
+      item.classList.remove('current');
+      if (index + 1 === pageNum && pageNum !== 'complete') {
+        item.classList.add('current');
+      }
+    });
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function restartAll() {
+  completedExercises.clear();
+  
+  document.querySelectorAll('select').forEach(select => {
+    select.value = '';
+    select.className = '';
+  });
+  
+  document.querySelectorAll('.feedback').forEach(fb => {
+    fb.classList.remove('show');
+  });
+  
+  document.querySelectorAll('.btn.primary').forEach(btn => {
+    btn.disabled = false;
+  });
+  
+  document.querySelectorAll('.progress-item').forEach((item, index) => {
+    item.classList.remove('complete', 'current');
+    item.querySelector('.progress-icon').textContent = index + 1;
+  });
+  
+  goToPage(1);
+}
+
+// EXERCISE 1
+document.getElementById('checkEx1')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex1_part1').value;
+  const part2 = document.getElementById('ex1_part2').value;
+  const part3 = document.getElementById('ex1_part3').value;
+  const part4 = document.getElementById('ex1_part4').value;
+  
+  if (!part1 || !part2 || !part3 || !part4) {
+    const feedback = document.getElementById('feedbackEx1');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts of the sentence first!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct',
+    part3: part3 === 'correct',
+    part4: part4 === 'correct'
+  };
+  
+  document.getElementById('ex1_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex1_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  document.getElementById('ex1_part3').className = correct.part3 ? 'correct' : 'incorrect';
+  document.getElementById('ex1_part4').className = correct.part4 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx1');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! Your sentence uses: "According to" + source + date (Month YYYY) + fraction in words + percentage in brackets.';
+    this.disabled = true;
+    updateProgress(1);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check your choices. Use: "According to" for surveys, date format "(Month YYYY)", fraction in words (slightly more than four-fifths), and percentage "(85%)".';
+  }
+});
+
+// EXERCISE 2
+document.getElementById('checkEx2')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex2_part1').value;
+  const part2 = document.getElementById('ex2_part2').value;
+  const part3 = document.getElementById('ex2_part3').value;
+  const part4 = document.getElementById('ex2_part4').value;
+  
+  if (!part1 || !part2 || !part3 || !part4) {
+    const feedback = document.getElementById('feedbackEx2');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts of the sentence first!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct',
+    part3: part3 === 'correct',
+    part4: part4 === 'correct'
+  };
+  
+  document.getElementById('ex2_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex2_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  document.getElementById('ex2_part3').className = correct.part3 ? 'correct' : 'incorrect';
+  document.getElementById('ex2_part4').className = correct.part4 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx2');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Excellent! You used "Based on" + date "(November 2025)" + "around two-thirds (66%)" correctly!';
+    this.disabled = true;
+    updateProgress(2);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check your selections. Use: "Based on" for surveys, exact date format "(November 2025)", and "around two-thirds (66%)".';
+  }
+});
+
+// EXERCISE 3
+document.getElementById('checkEx3')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex3_part1').value;
+  const part2 = document.getElementById('ex3_part2').value;
+  const part3 = document.getElementById('ex3_part3').value;
+  
+  if (!part1 || !part2 || !part3) {
+    const feedback = document.getElementById('feedbackEx3');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts of the sentence first!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct',
+    part3: part3 === 'correct'
+  };
+  
+  document.getElementById('ex3_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex3_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  document.getElementById('ex3_part3').className = correct.part3 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx3');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Great! Feedback phrases use: "Comments from" + source + "show that" + "complained about".';
+    this.disabled = true;
+    updateProgress(3);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ For feedback: use "Comments from" (not survey phrases), "show that" (for forums), and "complained about" (for negative feedback).';
+  }
+});
+
+// EXERCISE 4
+document.getElementById('checkEx4')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex4_part1').value;
+  const part2 = document.getElementById('ex4_part2').value;
+  const part3 = document.getElementById('ex4_part3').value;
+  const part4 = document.getElementById('ex4_part4').value;
+  
+  if (!part1 || !part2 || !part3 || !part4) {
+    const feedback = document.getElementById('feedbackEx4');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts of the sentence first!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct',
+    part3: part3 === 'correct',
+    part4: part4 === 'correct'
+  };
+  
+  document.getElementById('ex4_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex4_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  document.getElementById('ex4_part3').className = correct.part3 ? 'correct' : 'incorrect';
+  document.getElementById('ex4_part4').className = correct.part4 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx4');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! "Feedback from" + source + "reveals that" + "several customers mentioned that" is correct!';
+    this.disabled = true;
+    updateProgress(4);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Use: "Feedback from" (for feedback forms), "reveals that", "several customers", and "mentioned that" (neutral tone).';
+  }
+});
+
+// EXERCISE 5
+document.getElementById('checkEx5')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex5_part1').value;
+  const part2 = document.getElementById('ex5_part2').value;
+  const part3 = document.getElementById('ex5_part3').value;
+  const part4 = document.getElementById('ex5_part4').value;
+  const part5 = document.getElementById('ex5_part5').value;
+  const part6 = document.getElementById('ex5_part6').value;
+  const part7 = document.getElementById('ex5_part7').value;
+  
+  if (!part1 || !part2 || !part3 || !part4 || !part5 || !part6 || !part7) {
+    const feedback = document.getElementById('feedbackEx5');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts of both sentences first!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct',
+    part3: part3 === 'correct',
+    part4: part4 === 'correct',
+    part5: part5 === 'correct',
+    part6: part6 === 'correct',
+    part7: part7 === 'correct'
+  };
+  
+  document.getElementById('ex5_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex5_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  document.getElementById('ex5_part3').className = correct.part3 ? 'correct' : 'incorrect';
+  document.getElementById('ex5_part4').className = correct.part4 ? 'correct' : 'incorrect';
+  document.getElementById('ex5_part5').className = correct.part5 ? 'correct' : 'incorrect';
+  document.getElementById('ex5_part6').className = correct.part6 ? 'correct' : 'incorrect';
+  document.getElementById('ex5_part7').className = correct.part7 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx5');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Amazing! Both sentences perfect! Survey: "According to" + date + fraction + %. Feedback: "Comments from" + "show that" + "complained that".';
+    this.disabled = true;
+    updateProgress(5);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check both sentences. Sentence 1 needs survey phrases (According to, date, fraction, %). Sentence 2 needs feedback phrases (Comments from, show that, complained that).';
+  }
+});
+</script>
+
+</body>
+</html>

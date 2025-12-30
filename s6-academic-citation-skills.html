@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>(Extended Practice) Academic Citation Skills</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{
+  --bg1:#fff9f0;
+  --bg2:#f0f9ff;
+  --bg3:#f0fdf4;
+  --bg4:#fffef0;
+  --accent:#ff8c00;
+  --accent-2:#ffb347;
+  --accent-light:#ffd699;
+  --blue:#3b82f6;
+  --blue-light:#dbeafe;
+  --green:#10b981;
+  --green-light:#d1fae5;
+  --yellow:#fbbf24;
+  --yellow-light:#fef3c7;
+  --pink:#ec4899;
+  --purple:#a855f7;
+  --purple-light:#f3e8ff;
+  --teal:#14b8a6;
+  --teal-light:#ccfbf1;
+  --ink:#4a2c2a;
+  --ink-light:#6e5a52;
+  --muted:#8b7355;
+  --card-bg: rgba(255,255,255,0.96);
+  --shadow: 0 10px 30px rgba(74,44,42,0.1);
+  --shadow-soft: 0 4px 12px rgba(74,44,42,0.08);
+  --radius: 18px;
+  --success:#10b981;
+  --success-bg:#d1fae5;
+  --success-border:#6ee7b7;
+  --error:#dc2626;
+  --error-bg:#fee2e2;
+  --error-border:#fca5a5;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;}
+body{
+  font-family:'Poppins',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(135deg,#fffef9,#fafcff 50%,#fdfff7);
+  padding:clamp(12px,3vw,20px);
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:900px;
+  margin:0 auto;
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(16px,4vw,40px);
+  min-height:calc(100vh - 40px);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:clamp(20px,4vw,24px);
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.82rem;
+  background:linear-gradient(135deg,var(--teal-light),var(--purple-light));
+  color:var(--teal);
+  margin-bottom:10px;
+  border:1px solid rgba(20,184,166,0.25);
+}
+
+h1{
+  font-size:clamp(1.5rem,4vw,2.2rem);
+  margin:0 0 12px;
+  color:var(--accent);
+  font-weight:700;
+  line-height:1.2;
+}
+
+.intro{
+  font-size:clamp(0.95rem,2.5vw,1.05rem);
+  color:var(--ink-light);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.exercise-page{
+  display:none;
+}
+
+.exercise-page.active{
+  display:block;
+  animation:fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:none;}
+}
+
+.block{
+  background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,252,255,0.95));
+  border:1px solid rgba(59,130,246,0.12);
+  padding:clamp(16px,3.5vw,28px);
+  border-radius:15px;
+  box-shadow:var(--shadow-soft);
+  margin-bottom:20px;
+}
+
+h2{
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
+  margin:0 0 12px;
+  color:var(--ink);
+  font-weight:700;
+}
+
+h3{
+  font-size:clamp(1rem,2.8vw,1.3rem);
+  margin:14px 0 10px;
+  color:var(--ink);
+  font-weight:600;
+}
+
+h4{
+  font-size:clamp(0.9rem,2.3vw,1rem);
+  margin:12px 0 8px;
+}
+
+p{margin:0 0 1rem;line-height:1.6;}
+
+.small{font-size:clamp(0.85rem,2.2vw,0.9rem);color:var(--muted);line-height:1.5;}
+
+.style-box{
+  background:#fff;
+  border:2px solid rgba(20,184,166,0.25);
+  border-radius:12px;
+  padding:16px;
+  margin:14px 0;
+  box-shadow:var(--shadow-soft);
+}
+
+.style-box h4{
+  margin:0 0 12px;
+  color:var(--teal);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:clamp(0.95rem,2.5vw,1.1rem);
+}
+
+.style-badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.75rem;
+  background:var(--teal-light);
+  color:var(--teal);
+  border:1px solid rgba(20,184,166,0.3);
+}
+
+.example-row{
+  background:linear-gradient(135deg,rgba(20,184,166,0.05),#fff);
+  border-left:4px solid var(--teal);
+  border-radius:8px;
+  padding:12px 14px;
+  margin:10px 0;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+}
+
+.example-row strong{
+  display:block;
+  color:var(--teal);
+  margin-bottom:6px;
+  font-size:0.8rem;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+.example-row code{
+  background:rgba(20,184,166,0.1);
+  padding:2px 6px;
+  border-radius:4px;
+  font-family:'Courier New',monospace;
+  font-size:0.9em;
+}
+
+.dropdown-sentence{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  line-height:2;
+}
+
+.dropdown-sentence select{
+  padding:6px 12px;
+  border:2px solid rgba(20,184,166,0.3);
+  border-radius:8px;
+  font-family:inherit;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+  cursor:pointer;
+  background:#fff;
+  min-width:150px;
+  max-width:100%;
+  transition:all .25s ease;
+}
+
+.dropdown-sentence select:focus{
+  outline:none;
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(20,184,166,0.15);
+}
+
+.dropdown-sentence select.correct{
+  border-color:var(--success);
+  background:var(--success-bg);
+}
+
+.dropdown-sentence select.incorrect{
+  border-color:var(--error);
+  background:var(--error-bg);
+}
+
+.citation-builder{
+  background:#fff;
+  border:3px dashed var(--teal);
+  border-radius:12px;
+  padding:16px;
+  margin:14px 0;
+  min-height:80px;
+}
+
+.citation-builder.filled{
+  border-style:solid;
+  background:linear-gradient(135deg,rgba(20,184,166,0.05),#fff);
+}
+
+.match-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:16px 0;
+}
+
+.match-item{
+  background:#fff;
+  border:2px solid rgba(20,184,166,0.2);
+  border-radius:10px;
+  padding:14px;
+  box-shadow:var(--shadow-soft);
+  transition:all .25s ease;
+}
+
+.match-item:hover{
+  border-color:var(--teal);
+  box-shadow:0 6px 16px rgba(20,184,166,0.15);
+}
+
+.match-item.correct{
+  border-color:var(--success);
+  background:var(--success-bg);
+}
+
+.match-item.incorrect{
+  border-color:var(--error);
+  background:var(--error-bg);
+}
+
+.match-item strong{
+  display:block;
+  margin-bottom:8px;
+  color:var(--teal);
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+}
+
+.match-item select{
+  width:100%;
+  padding:8px 12px;
+  border:2px solid rgba(20,184,166,0.3);
+  border-radius:8px;
+  font-family:inherit;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+  cursor:pointer;
+  background:#fff;
+}
+
+.btn{
+  appearance:none;cursor:pointer;
+  border:1px solid rgba(59,130,246,0.15);
+  background:#fff;
+  padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,22px);
+  border-radius:12px;
+  font-weight:600;
+  color:var(--ink);
+  box-shadow:var(--shadow-soft);
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-family:'Poppins',system-ui,sans-serif;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(59,130,246,0.15);
+  border-color:var(--blue);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--teal),var(--blue),var(--purple));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 10px 28px rgba(20,184,166,0.3);
+}
+
+.btn.primary:hover{
+  box-shadow:0 12px 32px rgba(20,184,166,0.4);
+  transform:translateY(-3px);
+}
+
+.btn.secondary{
+  background:var(--teal-light);
+  color:var(--teal);
+  border-color:var(--teal);
+}
+
+.btn.restart{
+  background:var(--yellow-light);
+  color:#92400e;
+  border-color:var(--yellow);
+}
+
+.btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none !important;
+  display:none;
+}
+
+.feedback{
+  margin-top:14px;
+  padding:12px 16px;
+  border-radius:10px;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-weight:600;
+  display:none;
+  line-height:1.5;
+}
+
+.feedback.show{
+  display:block;
+  animation:slideIn .3s ease;
+}
+
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(-5px);}
+  to{opacity:1;transform:none;}
+}
+
+.feedback.good{
+  background:var(--success-bg);
+  color:#065f46;
+  border:2px solid var(--success-border);
+}
+
+.feedback.bad{
+  background:var(--error-bg);
+  color:var(--error);
+  border:2px solid var(--error-border);
+}
+
+.feedback.info{
+  background:var(--blue-light);
+  color:#1e40af;
+  border:2px solid var(--blue);
+}
+
+.callout{
+  border-left:5px solid var(--teal);
+  background:linear-gradient(135deg,var(--teal-light),#f0fdfa);
+  padding:12px 14px;
+  border-radius:12px;
+  margin:14px 0;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+  box-shadow:var(--shadow-soft);
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.callout.tip{
+  border-left-color:var(--yellow);
+  background:linear-gradient(135deg,var(--yellow-light),#fffbeb);
+}
+
+.callout ul{
+  margin:8px 0 0;
+  padding-left:1.3em;
+}
+
+.callout li{
+  margin:6px 0;
+}
+
+.progress-tracker{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(8px,2vw,16px);
+  background:linear-gradient(135deg,var(--teal-light),var(--purple-light));
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow-soft);
+  flex-wrap:wrap;
+}
+
+.progress-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  font-size:0.75rem;
+  font-weight:600;
+  color:var(--muted);
+  text-align:center;
+}
+
+.progress-item.complete{
+  color:var(--green);
+}
+
+.progress-item.current{
+  color:var(--teal);
+}
+
+.progress-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink:0;
+}
+
+.progress-item.current .progress-icon{
+  border:3px solid var(--teal);
+  box-shadow:0 0 0 4px rgba(20,184,166,0.15);
+}
+
+.nav-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.nav-buttons .btn{
+  flex:1;
+  min-width:120px;
+}
+
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--blue);
+  font-weight:600;
+  text-decoration:none;
+  margin-top:24px;
+  padding:10px 16px;
+  border-radius:10px;
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+}
+
+.back-link:hover{
+  background:var(--blue-light);
+  transform:translateX(-4px);
+}
+
+.comparison-table{
+  overflow-x:auto;
+  margin:16px 0;
+}
+
+.comparison-table table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:var(--shadow-soft);
+  font-size:clamp(0.82rem,2.2vw,0.9rem);
+}
+
+.comparison-table th{
+  background:linear-gradient(135deg,var(--teal-light),var(--teal));
+  color:#fff;
+  padding:12px 10px;
+  text-align:left;
+  font-weight:600;
+}
+
+.comparison-table td{
+  padding:10px;
+  border-bottom:1px solid rgba(20,184,166,0.1);
+}
+
+.comparison-table tr:hover{
+  background:rgba(20,184,166,0.05);
+}
+
+@media(max-width:768px){
+  .match-grid{
+    grid-template-columns:1fr;
+  }
+  
+  .progress-tracker{
+    gap:8px;
+  }
+  
+  .progress-item span{
+    font-size:0.7rem;
+  }
+  
+  .nav-buttons{
+    flex-direction:column;
+  }
+  
+  .nav-buttons .btn{
+    width:100%;
+  }
+  
+  .dropdown-sentence{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  
+  .dropdown-sentence select{
+    width:100%;
+    max-width:100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span class="badge">Extra Step: For Further Studies</span>
+    <h1>🎓 Academic Citation Skills</h1>
+    <p class="intro">Learn citation styles for university and academic writing</p>
+  </div>
+
+  <div class="progress-tracker" id="progressTracker">
+    <div class="progress-item current" id="prog1">
+      <div class="progress-icon">1</div>
+      <span>Styles</span>
+    </div>
+    <div class="progress-item" id="prog2">
+      <div class="progress-icon">2</div>
+      <span>APA</span>
+    </div>
+    <div class="progress-item" id="prog3">
+      <div class="progress-icon">3</div>
+      <span>MLA</span>
+    </div>
+    <div class="progress-item" id="prog4">
+      <div class="progress-icon">4</div>
+      <span>Match</span>
+    </div>
+    <div class="progress-item" id="prog5">
+      <div class="progress-icon">5</div>
+      <span>Practice</span>
+    </div>
+  </div>
+
+  <!-- EXERCISE 1: INTRODUCTION TO CITATION STYLES -->
+  <div class="exercise-page active" data-page="1">
+    <div class="block">
+      <h2>Exercise 1: <br>Understanding Citation Styles</h2>
+      <p class="small">Learn the three main academic citation styles and when to use them.</p>
+      
+      <div class="callout">
+        <h3>Why Academic Citations?</h3>
+        <p style="margin:0;">Academic writing requires <strong>proper citations</strong> to give credit to sources, avoid plagiarism, and help readers find your references. Different subjects use different citation styles.</p>
+      </div>
+
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Style</th>
+              <th>Used In</th>
+              <th>In-Text Format</th>
+              <th>Reference List</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>APA</strong></td>
+              <td>Psychology, Education, Social Sciences</td>
+              <td>(Smith, 2025)</td>
+              <td>References</td>
+            </tr>
+            <tr>
+              <td><strong>MLA</strong></td>
+              <td>Literature, Arts, Humanities</td>
+              <td>(Smith 45)</td>
+              <td>Works Cited</td>
+            </tr>
+            <tr>
+              <td><strong>Chicago</strong></td>
+              <td>History, Business</td>
+              <td>(Smith 2025) or Footnotes</td>
+              <td>Bibliography</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Match the Subject to Citation Style</h3>
+      <div class="match-grid">
+        <div class="match-item">
+          <strong>Psychology Research Paper</strong>
+          <select id="q1">
+            <option value="">-- select --</option>
+            <option value="correct">APA Style</option>
+            <option value="wrong1">MLA Style</option>
+            <option value="wrong2">Chicago Style</option>
+          </select>
+        </div>
+
+        <div class="match-item">
+          <strong>English Literature Essay</strong>
+          <select id="q2">
+            <option value="">-- select --</option>
+            <option value="wrong3">APA Style</option>
+            <option value="correct">MLA Style</option>
+            <option value="wrong4">Chicago Style</option>
+          </select>
+        </div>
+
+        <div class="match-item">
+          <strong>History Thesis</strong>
+          <select id="q3">
+            <option value="">-- select --</option>
+            <option value="wrong5">APA Style</option>
+            <option value="wrong6">MLA Style</option>
+            <option value="correct">Chicago Style</option>
+          </select>
+        </div>
+
+        <div class="match-item">
+          <strong>Education Journal Article</strong>
+          <select id="q4">
+            <option value="">-- select --</option>
+            <option value="correct">APA Style</option>
+            <option value="wrong7">MLA Style</option>
+            <option value="wrong8">Chicago Style</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx1" style="width:100%;">Check My Answers</button>
+      <div class="feedback" id="feedbackEx1"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)" disabled>← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2: APA STYLE -->
+  <div class="exercise-page" data-page="2">
+    <div class="block">
+      <h2>Exercise 2: <br>APA Style Citations</h2>
+      <p class="small">Practice building APA in-text citations and reference entries.</p>
+      
+      <div class="style-box">
+        <h4><span class="style-badge">APA 7</span> In-Text Citation Format</h4>
+        <div class="example-row">
+          <strong>Single Author:</strong>
+          <span>Recent studies show significant results <code>(Smith, 2025)</code>.</span>
+        </div>
+        <div class="example-row">
+          <strong>Two Authors:</strong>
+          <span>The research indicates <code>(Jones & Lee, 2025)</code>.</span>
+        </div>
+        <div class="example-row">
+          <strong>Direct Quote:</strong>
+          <span>"Citation is essential" <code>(Smith, 2025, p. 45)</code>.</span>
+        </div>
+      </div>
+
+      <h3>Build an APA In-Text Citation</h3>
+      <p class="small"><strong>Source:</strong> Book by Dr. Emily Chen, published 2025, page 78 (direct quote: "Academic writing requires precision.")</p>
+
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <span>"Academic writing requires precision"</span>
+          <select id="apa_part1">
+            <option value="">-- select --</option>
+            <option value="correct">(Chen,</option>
+            <option value="wrong1">(Emily Chen,</option>
+            <option value="wrong2">(Dr. Chen,</option>
+          </select>
+          <select id="apa_part2">
+            <option value="">-- select --</option>
+            <option value="correct">2025,</option>
+            <option value="wrong3">2025)</option>
+            <option value="wrong4">p. 78)</option>
+          </select>
+          <select id="apa_part3">
+            <option value="">-- select --</option>
+            <option value="correct">p. 78).</option>
+            <option value="wrong5">page 78).</option>
+            <option value="wrong6">78).</option>
+          </select>
+        </div>
+      </div>
+
+      <h3>Build an APA Reference List Entry</h3>
+      <p class="small"><strong>Book:</strong> Author: Emily Chen | Title: Academic Writing Skills | Year: 2025 | Publisher: Oxford Press</p>
+
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <select id="apa_ref1">
+            <option value="">-- select --</option>
+            <option value="correct">Chen, E.</option>
+            <option value="wrong7">Emily Chen.</option>
+            <option value="wrong8">Chen, Emily.</option>
+          </select>
+          <select id="apa_ref2">
+            <option value="">-- select --</option>
+            <option value="correct">(2025).</option>
+            <option value="wrong9">(2025,</option>
+            <option value="wrong10">2025.</option>
+          </select>
+          <select id="apa_ref3">
+            <option value="">-- select --</option>
+            <option value="correct">Academic writing skills.</option>
+            <option value="wrong11"><em>Academic Writing Skills</em>.</option>
+            <option value="wrong12">"Academic Writing Skills."</option>
+          </select>
+          <span>Oxford Press.</span>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx2" style="width:100%;">Check My APA Citations</button>
+      <div class="feedback" id="feedbackEx2"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3: MLA STYLE -->
+  <div class="exercise-page" data-page="3">
+    <div class="block">
+      <h2>Exercise 3: <br>MLA Style Citations</h2>
+      <p class="small">Practice building MLA in-text citations and works cited entries.</p>
+      
+      <div class="style-box">
+        <h4><span class="style-badge">MLA 9</span> In-Text Citation Format</h4>
+        <div class="example-row">
+          <strong>Single Author:</strong>
+          <span>The author argues this point <code>(Smith 45)</code>.</span>
+        </div>
+        <div class="example-row">
+          <strong>Two Authors:</strong>
+          <span>Research shows <code>(Jones and Lee 78)</code>.</span>
+        </div>
+        <div class="example-row">
+          <strong>Author Mentioned in Text:</strong>
+          <span>According to Smith, "citations matter" <code>(45)</code>.</span>
+        </div>
+      </div>
+
+      <h3>Build an MLA In-Text Citation</h3>
+      <p class="small"><strong>Source:</strong> Article by John Davis, page 123</p>
+
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <span>The study demonstrates significant findings</span>
+          <select id="mla_part1">
+            <option value="">-- select --</option>
+            <option value="correct">(Davis 123).</option>
+            <option value="wrong1">(Davis, 123).</option>
+            <option value="wrong2">(Davis p. 123).</option>
+          </select>
+        </div>
+      </div>
+
+      <h3>Build an MLA Works Cited Entry</h3>
+      <p class="small"><strong>Book:</strong> Author: Sarah Miller | Title: Modern Literature | Publisher: Penguin Books | Year: 2025</p>
+
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <select id="mla_ref1">
+            <option value="">-- select --</option>
+            <option value="correct">Miller, Sarah.</option>
+            <option value="wrong3">Sarah Miller.</option>
+            <option value="wrong4">Miller, S.</option>
+          </select>
+          <select id="mla_ref2">
+            <option value="">-- select --</option>
+            <option value="correct"><em>Modern Literature</em>.</option>
+            <option value="wrong5">"Modern Literature."</option>
+            <option value="wrong6">Modern Literature.</option>
+          </select>
+          <span>Penguin Books,</span>
+          <select id="mla_ref3">
+            <option value="">-- select --</option>
+            <option value="correct">2025.</option>
+            <option value="wrong7">(2025).</option>
+            <option value="wrong8">2025</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx3" style="width:100%;">Check My MLA Citations</button>
+      <div class="feedback" id="feedbackEx3"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(2)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 4: IDENTIFY CITATION STYLES -->
+  <div class="exercise-page" data-page="4">
+    <div class="block">
+      <h2>Exercise 4: <br>Identify the Citation Style</h2>
+      <p class="small">Look at each citation and identify which style it uses.</p>
+
+      <div class="style-box">
+        <strong>Citation 1:</strong>
+        <div class="example-row">
+          <span>The research demonstrates this concept (Johnson, 2025, p. 156).</span>
+        </div>
+        <select id="id1" style="width:100%;max-width:300px;padding:8px;border:2px solid rgba(20,184,166,0.3);border-radius:8px;margin-top:8px;">
+          <option value="">-- identify style --</option>
+          <option value="correct">APA Style</option>
+          <option value="wrong1">MLA Style</option>
+          <option value="wrong2">Chicago Style</option>
+        </select>
+      </div>
+
+      <div class="style-box">
+        <strong>Citation 2:</strong>
+        <div class="example-row">
+          <span>According to the author, "literature shapes society" (Williams 89).</span>
+        </div>
+        <select id="id2" style="width:100%;max-width:300px;padding:8px;border:2px solid rgba(20,184,166,0.3);border-radius:8px;margin-top:8px;">
+          <option value="">-- identify style --</option>
+          <option value="wrong3">APA Style</option>
+          <option value="correct">MLA Style</option>
+          <option value="wrong4">Chicago Style</option>
+        </select>
+      </div>
+
+      <div class="style-box">
+        <strong>Reference Entry 1:</strong>
+        <div class="example-row">
+          <span>Thompson, M. (2025). <em>Educational psychology</em>. Harvard Press.</span>
+        </div>
+        <select id="id3" style="width:100%;max-width:300px;padding:8px;border:2px solid rgba(20,184,166,0.3);border-radius:8px;margin-top:8px;">
+          <option value="">-- identify style --</option>
+          <option value="correct">APA Style</option>
+          <option value="wrong5">MLA Style</option>
+          <option value="wrong6">Chicago Style</option>
+        </select>
+      </div>
+
+      <div class="style-box">
+        <strong>Reference Entry 2:</strong>
+        <div class="example-row">
+          <span>Garcia, Maria. <em>Cultural Studies Today</em>. Oxford UP, 2025.</span>
+        </div>
+        <select id="id4" style="width:100%;max-width:300px;padding:8px;border:2px solid rgba(20,184,166,0.3);border-radius:8px;margin-top:8px;">
+          <option value="">-- identify style --</option>
+          <option value="wrong7">APA Style</option>
+          <option value="correct">MLA Style</option>
+          <option value="wrong8">Chicago Style</option>
+        </select>
+      </div>
+
+      <button class="btn primary" id="checkEx4" style="width:100%;">Check My Identifications</button>
+      <div class="feedback" id="feedbackEx4"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(3)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 5: COMPLETE CITATION PRACTICE -->
+  <div class="exercise-page" data-page="5">
+    <div class="block">
+      <h2>Exercise 5: <br>Build Complete Citations</h2>
+      <p class="small">Use the information provided to build correct citations in both APA and MLA styles.</p>
+
+      <div class="callout">
+        <strong>📚 Source Information:</strong>
+        <ul style="margin:8px 0 0;">
+          <li><strong>Author:</strong> Dr. Rebecca Taylor</li>
+          <li><strong>Book Title:</strong> Digital Communication in the 21st Century</li>
+          <li><strong>Publisher:</strong> Cambridge University Press</li>
+          <li><strong>Year:</strong> 2025</li>
+          <li><strong>Quote on page 92:</strong> "Social media has transformed how we interact."</li>
+        </ul>
+      </div>
+
+      <h3>Task 1: APA In-Text Citation (with quote)</h3>
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <span>"Social media has transformed how we interact"</span>
+          <select id="final_apa1">
+            <option value="">-- select --</option>
+            <option value="correct">(Taylor,</option>
+            <option value="wrong1">(Rebecca Taylor,</option>
+            <option value="wrong2">(Dr. Taylor,</option>
+          </select>
+          <select id="final_apa2">
+            <option value="">-- select --</option>
+            <option value="correct">2025,</option>
+            <option value="wrong3">2025)</option>
+            <option value="wrong4">(2025)</option>
+          </select>
+          <select id="final_apa3">
+            <option value="">-- select --</option>
+            <option value="correct">p. 92).</option>
+            <option value="wrong5">page 92).</option>
+            <option value="wrong6">92).</option>
+          </select>
+        </div>
+      </div>
+
+      <h3>Task 2: APA Reference List Entry</h3>
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <select id="final_apa_ref1">
+            <option value="">-- select --</option>
+            <option value="correct">Taylor, R.</option>
+            <option value="wrong7">Taylor, Rebecca.</option>
+            <option value="wrong8">Rebecca Taylor.</option>
+          </select>
+          <select id="final_apa_ref2">
+            <option value="">-- select --</option>
+            <option value="correct">(2025).</option>
+            <option value="wrong9">2025.</option>
+            <option value="wrong10">(2025,</option>
+          </select>
+          <select id="final_apa_ref3">
+            <option value="">-- select --</option>
+            <option value="correct"><em>Digital communication in the 21st century</em>.</option>
+            <option value="wrong11">Digital Communication in the 21st Century.</option>
+            <option value="wrong12">"Digital Communication in the 21st Century."</option>
+          </select>
+          <span>Cambridge University Press.</span>
+        </div>
+      </div>
+
+      <h3>Task 3: MLA In-Text Citation (with quote)</h3>
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <span>"Social media has transformed how we interact"</span>
+          <select id="final_mla1">
+            <option value="">-- select --</option>
+            <option value="correct">(Taylor 92).</option>
+            <option value="wrong13">(Taylor, 92).</option>
+            <option value="wrong14">(Taylor p. 92).</option>
+          </select>
+        </div>
+      </div>
+
+      <h3>Task 4: MLA Works Cited Entry</h3>
+      <div class="citation-builder">
+        <div class="dropdown-sentence">
+          <select id="final_mla_ref1">
+            <option value="">-- select --</option>
+            <option value="correct">Taylor, Rebecca.</option>
+            <option value="wrong15">Rebecca Taylor.</option>
+            <option value="wrong16">Taylor, R.</option>
+          </select>
+          <select id="final_mla_ref2">
+            <option value="">-- select --</option>
+            <option value="correct"><em>Digital Communication in the 21st Century</em>.</option>
+            <option value="wrong17">"Digital Communication in the 21st Century."</option>
+            <option value="wrong18">Digital Communication in the 21st Century.</option>
+          </select>
+          <span>Cambridge UP,</span>
+          <select id="final_mla_ref3">
+            <option value="">-- select --</option>
+            <option value="correct">2025.</option>
+            <option value="wrong19">(2025).</option>
+            <option value="wrong20">2025</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx5" style="width:100%;">Check All Citations</button>
+      <div class="feedback" id="feedbackEx5"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(4)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- COMPLETION PAGE -->
+  <div class="exercise-page" data-page="complete">
+    <div class="block">
+      <h2 style="color:var(--success);text-align:center;">🎉 All Exercises Completed!</h2>
+      <p style="text-align:center;font-size:clamp(1rem,2.5vw,1.1rem);margin:20px 0;">You've mastered academic citation basics!</p>
+      
+      <div class="callout tip">
+        <h3>✅ What you've learned:</h3>
+        <ul>
+          <li>When to use APA, MLA, and Chicago styles</li>
+          <li>How to format APA in-text citations and references</li>
+          <li>How to format MLA in-text citations and works cited</li>
+          <li>How to identify different citation styles</li>
+          <li>How to build complete citations from source information</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <h3>📖 Next Steps for Your Studies:</h3>
+        <ul>
+          <li>Use <strong>citation generators</strong> like Zotero, Mendeley, or EasyBib</li>
+          <li>Check your university's <strong>style guide requirements</strong></li>
+          <li>Practice citing different source types (journals, websites, videos)</li>
+          <li>Always include <strong>both in-text citations AND reference lists</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn primary" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="window.close()">✓ Finish</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">
+    <span>←</span>
+    <span>Back to Main Guide</span>
+  </a>
+</div>
+
+<script>
+let completedExercises = new Set();
+let currentPage = 1;
+
+function fireConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ['#14b8a6', '#3b82f6', '#10b981', '#fbbf24', '#a855f7']
+  });
+}
+
+function fireBigConfetti() {
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.5 },
+    colors: ['#14b8a6', '#3b82f6', '#10b981', '#fbbf24', '#a855f7', '#ec4899']
+  });
+}
+
+function updateProgress(exerciseNum) {
+  const progItem = document.getElementById('prog' + exerciseNum);
+  progItem.classList.add('complete');
+  progItem.classList.remove('current');
+  progItem.querySelector('.progress-icon').textContent = '✓';
+  
+  completedExercises.add(exerciseNum);
+  
+  setTimeout(fireConfetti, 300);
+  
+  if (completedExercises.size === 5) {
+    setTimeout(() => {
+      goToPage('complete');
+      fireBigConfetti();
+    }, 1500);
+  }
+}
+
+function goToPage(pageNum) {
+  document.querySelectorAll('.exercise-page').forEach(page => {
+    page.classList.remove('active');
+  });
+  
+  const targetPage = document.querySelector(`[data-page="${pageNum}"]`);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    currentPage = pageNum;
+    
+    document.querySelectorAll('.progress-item').forEach((item, index) => {
+      item.classList.remove('current');
+      if (index + 1 === pageNum && pageNum !== 'complete') {
+        item.classList.add('current');
+      }
+    });
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function restartAll() {
+  completedExercises.clear();
+  
+  document.querySelectorAll('select').forEach(select => {
+    select.value = '';
+    select.className = '';
+  });
+  
+  document.querySelectorAll('.match-item').forEach(item => {
+    item.classList.remove('correct', 'incorrect');
+  });
+  
+  document.querySelectorAll('.feedback').forEach(fb => {
+    fb.classList.remove('show');
+  });
+  
+  document.querySelectorAll('.btn.primary').forEach(btn => {
+    btn.disabled = false;
+  });
+  
+  document.querySelectorAll('.progress-item').forEach((item, index) => {
+    item.classList.remove('complete', 'current');
+    item.querySelector('.progress-icon').textContent = index + 1;
+  });
+  
+  goToPage(1);
+}
+
+// EXERCISE 1
+document.getElementById('checkEx1').addEventListener('click', function() {
+  const q1 = document.getElementById('q1').value;
+  const q2 = document.getElementById('q2').value;
+  const q3 = document.getElementById('q3').value;
+  const q4 = document.getElementById('q4').value;
+  
+  if (!q1 || !q2 || !q3 || !q4) {
+    const feedback = document.getElementById('feedbackEx1');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please answer all 4 questions!';
+    return;
+  }
+  
+  const correct = {
+    q1: q1 === 'correct',
+    q2: q2 === 'correct',
+    q3: q3 === 'correct',
+    q4: q4 === 'correct'
+  };
+  
+  const items = document.querySelectorAll('.match-item');
+  items[0].className = 'match-item ' + (correct.q1 ? 'correct' : 'incorrect');
+  items[1].className = 'match-item ' + (correct.q2 ? 'correct' : 'incorrect');
+  items[2].className = 'match-item ' + (correct.q3 ? 'correct' : 'incorrect');
+  items[3].className = 'match-item ' + (correct.q4 ? 'correct' : 'incorrect');
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx1');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! Psychology/Education→APA, Literature→MLA, History→Chicago!';
+    this.disabled = true;
+    updateProgress(1);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Remember: APA=Social Sciences, MLA=Humanities/Literature, Chicago=History/Business.';
+  }
+});
+
+// EXERCISE 2
+document.getElementById('checkEx2').addEventListener('click', function() {
+  const parts = ['apa_part1', 'apa_part2', 'apa_part3', 'apa_ref1', 'apa_ref2', 'apa_ref3'];
+  const values = parts.map(id => document.getElementById(id).value);
+  
+  if (values.some(v => !v)) {
+    const feedback = document.getElementById('feedbackEx2');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts of both citations!';
+    return;
+  }
+  
+  const correct = values.map(v => v === 'correct');
+  
+  parts.forEach((id, index) => {
+    document.getElementById(id).className = correct[index] ? 'correct' : 'incorrect';
+  });
+  
+  const allCorrect = correct.every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx2');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Excellent! APA format: In-text (Author, Year, p. #) | Reference: Author, Initial. (Year). Title. Publisher.';
+    this.disabled = true;
+    updateProgress(2);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ APA: Use last name + initial, (Year), lowercase title in italics, page as "p. 78".';
+  }
+});
+
+// EXERCISE 3
+document.getElementById('checkEx3').addEventListener('click', function() {
+  const parts = ['mla_part1', 'mla_ref1', 'mla_ref2', 'mla_ref3'];
+  const values = parts.map(id => document.getElementById(id).value);
+  
+  if (values.some(v => !v)) {
+    const feedback = document.getElementById('feedbackEx3');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts!';
+    return;
+  }
+  
+  const correct = values.map(v => v === 'correct');
+  
+  parts.forEach((id, index) => {
+    document.getElementById(id).className = correct[index] ? 'correct' : 'incorrect';
+  });
+  
+  const allCorrect = correct.every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx3');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! MLA format: In-text (Author page#) | Works Cited: Author, Full Name. Title. Publisher, Year.';
+    this.disabled = true;
+    updateProgress(3);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ MLA: Use full name, italicized title, no parentheses around year, period after year.';
+  }
+});
+
+// EXERCISE 4
+document.getElementById('checkEx4').addEventListener('click', function() {
+  const id1 = document.getElementById('id1').value;
+  const id2 = document.getElementById('id2').value;
+  const id3 = document.getElementById('id3').value;
+  const id4 = document.getElementById('id4').value;
+  
+  if (!id1 || !id2 || !id3 || !id4) {
+    const feedback = document.getElementById('feedbackEx4');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please identify all 4 citations!';
+    return;
+  }
+  
+  const correct = {
+    id1: id1 === 'correct',
+    id2: id2 === 'correct',
+    id3: id3 === 'correct',
+    id4: id4 === 'correct'
+  };
+  
+  ['id1', 'id2', 'id3', 'id4'].forEach((id, index) => {
+    const key = 'id' + (index + 1);
+    document.getElementById(id).className = correct[key] ? 'correct' : 'incorrect';
+  });
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx4');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Excellent identification! You can spot APA (year+page), MLA (author page), and formatting differences!';
+    this.disabled = true;
+    updateProgress(4);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Hints: APA has (Author, Year, p. #), MLA has (Author page#), APA uses initials, MLA uses full names.';
+  }
+});
+
+// EXERCISE 5
+document.getElementById('checkEx5').addEventListener('click', function() {
+  const parts = ['final_apa1', 'final_apa2', 'final_apa3', 'final_apa_ref1', 'final_apa_ref2', 'final_apa_ref3',
+                 'final_mla1', 'final_mla_ref1', 'final_mla_ref2', 'final_mla_ref3'];
+  const values = parts.map(id => document.getElementById(id).value);
+  
+  if (values.some(v => !v)) {
+    const feedback = document.getElementById('feedbackEx5');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all 4 citation tasks!';
+    return;
+  }
+  
+  const correct = values.map(v => v === 'correct');
+  
+  parts.forEach((id, index) => {
+    document.getElementById(id).className = correct[index] ? 'correct' : 'incorrect';
+  });
+  
+  const allCorrect = correct.every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx5');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Outstanding! You can now create complete APA and MLA citations correctly! You\'re ready for academic writing!';
+    this.disabled = true;
+    updateProgress(5);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check each format carefully: APA=(Last, Initial. (Year). Lowercase italic title.) | MLA=(Last, Full. Title in Italics. Publisher, Year.)';
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>(Extended Practice) Step 1 - Spotting Citation Features</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{
+  --bg1:#fff9f0;
+  --bg2:#f0f9ff;
+  --bg3:#f0fdf4;
+  --bg4:#fffef0;
+  --accent:#ff8c00;
+  --accent-2:#ffb347;
+  --accent-light:#ffd699;
+  --blue:#3b82f6;
+  --blue-light:#dbeafe;
+  --green:#10b981;
+  --green-light:#d1fae5;
+  --yellow:#fbbf24;
+  --yellow-light:#fef3c7;
+  --pink:#ec4899;
+  --ink:#4a2c2a;
+  --ink-light:#6e5a52;
+  --muted:#8b7355;
+  --card-bg: rgba(255,255,255,0.96);
+  --shadow: 0 10px 30px rgba(74,44,42,0.1);
+  --shadow-soft: 0 4px 12px rgba(74,44,42,0.08);
+  --radius: 18px;
+  --success:#10b981;
+  --success-bg:#d1fae5;
+  --success-border:#6ee7b7;
+  --error:#dc2626;
+  --error-bg:#fee2e2;
+  --error-border:#fca5a5;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;}
+body{
+  font-family:'Poppins',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(135deg,#fffef9,#fafcff 50%,#fdfff7);
+  padding:clamp(12px,3vw,20px);
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:900px;
+  margin:0 auto;
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(16px,4vw,40px);
+  min-height:calc(100vh - 40px);
+  display:flex;
+  flex-direction:column;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.82rem;
+  background:linear-gradient(135deg,var(--blue-light),var(--yellow-light));
+  color:var(--blue);
+  margin-bottom:10px;
+  border:1px solid rgba(59,130,246,0.25);
+}
+
+h1{
+  font-size:clamp(1.5rem,4vw,2.2rem);
+  margin:0 0 12px;
+  color:var(--accent);
+  font-weight:700;
+  line-height:1.2;
+}
+
+.intro{
+  font-size:clamp(0.95rem,2.5vw,1.05rem);
+  color:var(--ink-light);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.exercise-page{
+  display:none;
+  flex:1;
+}
+
+.exercise-page.active{
+  display:block;
+  animation:fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:none;}
+}
+
+.block{
+  background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,252,255,0.95));
+  border:1px solid rgba(59,130,246,0.12);
+  padding:clamp(16px,3.5vw,28px);
+  border-radius:15px;
+  box-shadow:var(--shadow-soft);
+  margin-bottom:20px;
+}
+
+h2{
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
+  margin:0 0 12px;
+  color:var(--ink);
+  font-weight:700;
+}
+
+h3{
+  font-size:clamp(1rem,2.8vw,1.3rem);
+  margin:14px 0 10px;
+  color:var(--ink);
+  font-weight:600;
+}
+
+h4{
+  font-size:clamp(0.9rem,2.3vw,1rem);
+  margin:12px 0 8px;
+}
+
+p{margin:0 0 1rem;line-height:1.6;}
+
+.small{font-size:clamp(0.85rem,2.2vw,0.9rem);color:var(--muted);line-height:1.5;}
+
+.email-sample{
+  background:#ffffff;
+  border:1px solid rgba(59,130,246,0.15);
+  border-radius:12px;
+  padding:14px;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  line-height:1.75;
+  margin:12px 0;
+  box-shadow:var(--shadow-soft);
+}
+
+.email-sample.no-cite{
+  border-color:rgba(220,38,38,0.2);
+  background:linear-gradient(135deg,#fff,#fef2f2);
+}
+
+.email-sample.with-cite{
+  border-color:rgba(16,185,129,0.2);
+  background:linear-gradient(135deg,#fff,#f0fdf4);
+}
+
+.cite-highlight{
+  background:rgba(251,191,36,0.25);
+  padding:2px 4px;
+  border-radius:4px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.feature-list{
+  display:grid;
+  gap:10px;
+  margin:12px 0;
+}
+
+.feature-item{
+  background:#fff;
+  border:2px solid rgba(59,130,246,0.15);
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  transition:all .25s ease;
+}
+
+.feature-item:hover{
+  border-color:var(--blue);
+  transform:translateX(3px);
+}
+
+.feature-item input[type="checkbox"]{
+  width:20px;
+  height:20px;
+  accent-color:var(--green);
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+.feature-item.checked{
+  background:var(--success-bg);
+  border-color:var(--success);
+  color:#065f46;
+  font-weight:600;
+}
+
+.feature-item.error-highlight{
+  background:var(--error-bg);
+  border-color:var(--error);
+}
+
+.btn{
+  appearance:none;cursor:pointer;
+  border:1px solid rgba(59,130,246,0.15);
+  background:#fff;
+  padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,22px);
+  border-radius:12px;
+  font-weight:600;
+  color:var(--ink);
+  box-shadow:var(--shadow-soft);
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-family:'Poppins',system-ui,sans-serif;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(59,130,246,0.15);
+  border-color:var(--blue);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--pink),var(--blue));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 10px 28px rgba(236,72,153,0.3);
+}
+
+.btn.primary:hover{
+  box-shadow:0 12px 32px rgba(236,72,153,0.4);
+  transform:translateY(-3px);
+}
+
+.btn.secondary{
+  background:var(--blue-light);
+  color:var(--blue);
+  border-color:var(--blue);
+}
+
+.btn.restart{
+  background:var(--yellow-light);
+  color:#92400e;
+  border-color:var(--yellow);
+}
+
+.btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none !important;
+}
+
+.feedback{
+  margin-top:14px;
+  padding:12px 16px;
+  border-radius:10px;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-weight:600;
+  display:none;
+  line-height:1.5;
+}
+
+.feedback.show{
+  display:block;
+  animation:slideIn .3s ease;
+}
+
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(-5px);}
+  to{opacity:1;transform:none;}
+}
+
+.feedback.good{
+  background:var(--success-bg);
+  color:#065f46;
+  border:2px solid var(--success-border);
+}
+
+.feedback.bad{
+  background:var(--error-bg);
+  color:var(--error);
+  border:2px solid var(--error-border);
+}
+
+.feedback.info{
+  background:var(--blue-light);
+  color:#1e40af;
+  border:2px solid var(--blue);
+}
+
+.callout{
+  border-left:5px solid var(--blue);
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  padding:12px 14px;
+  border-radius:12px;
+  margin:14px 0;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+  box-shadow:var(--shadow-soft);
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.callout.tip{
+  border-left-color:var(--yellow);
+  background:linear-gradient(135deg,var(--yellow-light),#fffbeb);
+}
+
+.callout ul{
+  margin:8px 0 0;
+  padding-left:1.3em;
+}
+
+.progress-tracker{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(8px,2vw,16px);
+  background:linear-gradient(135deg,var(--green-light),var(--blue-light));
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow-soft);
+  flex-wrap:wrap;
+}
+
+.progress-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  font-size:0.75rem;
+  font-weight:600;
+  color:var(--muted);
+  text-align:center;
+}
+
+.progress-item.complete{
+  color:var(--green);
+}
+
+.progress-item.current{
+  color:var(--blue);
+}
+
+.progress-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink:0;
+}
+
+.progress-item.current .progress-icon{
+  border:3px solid var(--blue);
+  box-shadow:0 0 0 4px rgba(59,130,246,0.15);
+}
+
+.nav-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.nav-buttons .btn{
+  flex:1;
+  min-width:120px;
+}
+  
+.nav-buttons .btn[disabled] {
+  display: none;
+}
+
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--blue);
+  font-weight:600;
+  text-decoration:none;
+  margin-top:24px;
+  padding:10px 16px;
+  border-radius:10px;
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+}
+
+.back-link:hover{
+  background:var(--blue-light);
+  transform:translateX(-4px);
+}
+
+@media(max-width:640px){
+  .progress-tracker{
+    gap:8px;
+  }
+  
+  .progress-item span{
+    font-size:0.7rem;
+  }
+  
+  .nav-buttons{
+    flex-direction:column;
+  }
+  
+  .nav-buttons .btn{
+    width:100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span class="badge">Step 1: Extended Practice</span>
+    <h1>🔍 Spotting Citation Features</h1>
+    <p class="intro">Complete 5 exercises to master identifying citation features</p>
+  </div>
+
+  <div class="progress-tracker" id="progressTracker">
+    <div class="progress-item current" id="prog1">
+      <div class="progress-icon">1</div>
+      <span>Restaurant</span>
+    </div>
+    <div class="progress-item" id="prog2">
+      <div class="progress-icon">2</div>
+      <span>Library</span>
+    </div>
+    <div class="progress-item" id="prog3">
+      <div class="progress-icon">3</div>
+      <span>Shop</span>
+    </div>
+    <div class="progress-item" id="prog4">
+      <div class="progress-icon">4</div>
+      <span>Office</span>
+    </div>
+    <div class="progress-item" id="prog5">
+      <div class="progress-icon">5</div>
+      <span>Clinic</span>
+    </div>
+  </div>
+
+  <!-- EXERCISE 1 -->
+  <div class="exercise-page active" data-page="1">
+    <div class="block">
+      <h2>Exercise 1: Restaurant Survey</h2>
+      <p class="small">Read this email excerpt about a restaurant survey. Tick the citation features you can find.</p>
+      
+      <div class="email-sample with-cite">
+        <p>I am writing about <span class="cite-highlight">the customer feedback survey conducted in November 2025</span>. <span class="cite-highlight">Nearly nine out of ten customers (85%)</span> said they were unhappy with the waiting time for food.</p>
+        <p><span class="cite-highlight">According to comments from our online review platform</span>, several customers complained that staff did not greet them when they arrived.</p>
+        <p>I recommend we hire more kitchen staff to reduce waiting times.</p>
+      </div>
+
+      <div class="feature-list" id="ex1List">
+        <label class="feature-item">
+          <input type="checkbox" value="date" data-correct="true">
+          <span>States when survey was done (November 2025)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="opinion" data-correct="false">
+          <span>Uses writer's personal opinion ("I think...")</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="percent" data-correct="true">
+          <span>Give specific numbers (nearly nine out of ten customers (85%))</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="names" data-correct="true">
+          <span>Names the source (survey, online platform)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="vague" data-correct="false">
+          <span>Uses vague language ("many people think")</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="links" data-correct="true">
+          <span>Links facts to survey findings</span>
+        </label>
+      </div>
+
+      <button class="btn primary" id="checkEx1">Check Answers</button>
+      <div class="feedback" id="feedbackEx1"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)" disabled>← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="exercise-page" data-page="2">
+    <div class="block">
+      <h2>Exercise 2: Library User Survey</h2>
+      <p class="small">This email excerpt has NO proper citations. Tick what's wrong.</p>
+      
+      <div class="email-sample no-cite">
+        <p>Most students are unhappy with the library opening hours. They said it closes too early on weekends.</p>
+        <p>A lot of people mentioned that not enough study rooms are available during exam periods.</p>
+        <p>I think we should open until 10pm on Saturdays and Sundays.</p>
+      </div>
+
+      <div class="feature-list" id="ex2List">
+        <label class="feature-item">
+          <input type="checkbox" value="nosource" data-correct="true">
+          <span>No source mentioned (survey? forum?)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="nodate" data-correct="true">
+          <span>No date for when data was collected</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="nonumber" data-correct="true">
+          <span>No numbers or percentages shown</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="hascite" data-correct="false">
+          <span>Uses citation phrases like "According to..."</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="personal" data-correct="true">
+          <span>Uses "I think" instead of linking to data</span>
+        </label>
+      </div>
+
+      <button class="btn primary" id="checkEx2">Check Answers</button>
+      <div class="feedback" id="feedbackEx2"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3 -->
+  <div class="exercise-page" data-page="3">
+    <div class="block">
+      <h2>Exercise 3: Retail Store Feedback</h2>
+      <p class="small">Compare Excerpt A with Excerpt B. Tick the correct sentences that best describe the features.</p>
+      
+      <div style="display:grid;gap:16px;margin:16px 0;">
+        <div>
+          <h4 style="color:var(--error);margin:0 0 8px;">Excerpt A</h4>
+          <div class="email-sample no-cite">
+          <p>Customers don't like our return policy. They find it too strict. Some customers also said staff are not friendly.</p>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color:var(--success);margin:0 0 8px;">Excerpt B</h4>
+          <div class="email-sample with-cite">
+            <p><span class="cite-highlight">Based on the customer satisfaction survey (Dec 2025)</span>, <span class="cite-highlight">seven out of ten respondents (70%)</span> were dissatisfied with our return policy. <span class="cite-highlight">Feedback from the store suggestion box</span> shows that customers found the policy too strict. In addition, <span class="cite-highlight">around two-thirds (65%) of the survey respondents</span> felt staff were not friendly enough.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-list" id="ex3List">
+        <label class="feature-item">
+          <input type="checkbox" value="source" data-correct="true">
+          <span>Excerpt B names multiple sources (survey + suggestion box)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="specific" data-correct="true">
+          <span>Excerpt B gives specific numbers (70%, 65%)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="when" data-correct="true">
+          <span>Excerpt B states when data was collected (Dec 2025)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="vague" data-correct="false">
+          <span>Excerpt A is better because it's shorter and more strightforward</span>
+        </label>
+        </div>
+
+      <button class="btn primary" id="checkEx3">Check Answers</button>
+      <div class="feedback" id="feedbackEx3"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(2)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 4 -->
+  <div class="exercise-page" data-page="4">
+    <div class="block">
+      <h2>Exercise 4: Office Survey</h2>
+      <p class="small">Read this excerpt. Which sentences have proper citations? Tick the correct ones.</p>
+      
+      <div class="email-sample">
+        <p>Dear Team Leader</p>
+        <p><strong>Sentence 1:</strong> <span class="cite-highlight">According to the staff survey (Oct 2025), four out of five employees (80%)</span> want flexible working hours.</p>
+        <p><strong>Sentence 2:</strong> Many people think the office is too cold in winter.</p>
+        <p><strong>Sentence 3:</strong> <span class="cite-highlight">Feedback from the staff forum shows that</span> employees are unhappy with the coffee machine.</p>
+        <p><strong>Sentence 4:</strong> I believe we should install better heating.</p>
+        <p><strong>Sentence 5:</strong> <span class="cite-highlight">The survey results indicate that around two-thirds (66%) of our staff</span> prefer remote work on Fridays.</p>
+      </div>
+
+      <div class="feature-list" id="ex4List">
+        <label class="feature-item">
+          <input type="checkbox" value="s1" data-correct="true">
+          <span>Sentence 1 has proper citation</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="s2" data-correct="false">
+          <span>Sentence 2 has proper citation</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="s3" data-correct="true">
+          <span>Sentence 3 has proper citation</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="s4" data-correct="false">
+          <span>Sentence 4 has proper citation</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="s5" data-correct="true">
+          <span>Sentence 5 has proper citation</span>
+        </label>
+      </div>
+
+      <button class="btn primary" id="checkEx4">Check Answers</button>
+      <div class="feedback" id="feedbackEx4"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(3)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 5 -->
+  <div class="exercise-page" data-page="5">
+    <div class="block">
+      <h2>Exercise 5: Clinic Patient Survey</h2>
+      <p class="small">This is the FINAL challenge! Find ALL the citation features in this well-written email.</p>
+      
+      <div class="email-sample with-cite">
+        <p>Dear Clinic Manager</p>
+        <p>I am writing to share findings from <span class="cite-highlight">the patient satisfaction survey conducted from 1-15 December 2025</span>.</p>
+        <p><span class="cite-highlight">According to the survey results, three-quarters (75%) of patients</span> felt waiting times were too long. <span class="cite-highlight">Slightly more than four-fifths (85%) of respondents</span> said they would like appointment reminders sent by text message.</p>
+        <p><span class="cite-highlight">Comments from the feedback forms</span> show that patients appreciated the friendly reception staff, but several mentioned that the waiting area was too crowded.</p>
+        <p><span class="cite-highlight">Based on these findings</span>, I recommend we hire an additional doctor for peak hours and install a text reminder system.</p>
+      </div>
+
+      <div class="feature-list" id="ex5List">
+        <label class="feature-item">
+          <input type="checkbox" value="date" data-correct="true">
+          <span>States exact dates (1-15 Dec 2025)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="multi" data-correct="true">
+          <span>Uses multiple citation phrases ("According to...", "Based on...")</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="percent" data-correct="true">
+          <span>Give specific numbers (i.e. percentages in words + numbers)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="sources" data-correct="true">
+          <span>Names different sources (survey + feedback forms)</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="link" data-correct="true">
+          <span>Links recommendations to survey findings</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="personal" data-correct="false">
+          <span>Uses personal opinions ("I think", "I believe")</span>
+        </label>
+      </div>
+
+      <button class="btn primary" id="checkEx5">Check Answers</button>
+      <div class="feedback" id="feedbackEx5"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(4)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- COMPLETION MESSAGE -->
+  <div class="exercise-page" data-page="complete">
+    <div class="block">
+      <h2 style="color:var(--success);text-align:center;">🎉 All Exercises Completed!</h2>
+      <p style="text-align:center;font-size:clamp(1rem,2.5vw,1.1rem);margin:20px 0;">You've mastered identifying citation features in workplace emails!</p>
+      
+      <div class="callout tip">
+        <h3>✅ What you've learned:</h3>
+        <ul>
+          <li>How to spot citation phrases in emails</li>
+          <li>Identify when sources are properly named</li>
+          <li>Recognise the difference between cited and non-cited writing</li>
+          <li>Find dates, percentages, and source links</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn primary" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="window.close()">✓ Finish</button>
+    </div>
+  </div>
+
+  <a href="index.html" 
+     class="back-link">
+    <span>←</span>
+    <span>Back to Main Guide</span>
+  </a>
+</div>
+
+<script>
+let completedExercises = new Set();
+let currentPage = 1;
+
+function fireConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function fireBigConfetti() {
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.5 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function updateProgress(exerciseNum) {
+  const progItem = document.getElementById('prog' + exerciseNum);
+  progItem.classList.add('complete');
+  progItem.classList.remove('current');
+  progItem.querySelector('.progress-icon').textContent = '✓';
+  
+  completedExercises.add(exerciseNum);
+  
+  // Confetti for each exercise
+  setTimeout(fireConfetti, 300);
+  
+  // Check if all 5 completed
+  if (completedExercises.size === 5) {
+    setTimeout(() => {
+      goToPage('complete');
+      fireBigConfetti();
+    }, 1500);
+  }
+}
+
+function goToPage(pageNum) {
+  // Hide all pages
+  document.querySelectorAll('.exercise-page').forEach(page => {
+    page.classList.remove('active');
+  });
+  
+  // Show target page
+  const targetPage = document.querySelector(`[data-page="${pageNum}"]`);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    currentPage = pageNum;
+    
+    // Update progress tracker
+    document.querySelectorAll('.progress-item').forEach((item, index) => {
+      item.classList.remove('current');
+      if (index + 1 === pageNum && pageNum !== 'complete') {
+        item.classList.add('current');
+      }
+    });
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function restartAll() {
+  completedExercises.clear();
+  
+  // Reset all checkboxes and feedback
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+    cb.closest('.feature-item')?.classList.remove('checked', 'error-highlight');
+  });
+  
+  document.querySelectorAll('.feedback').forEach(fb => {
+    fb.classList.remove('show');
+  });
+  
+  document.querySelectorAll('.btn.primary').forEach(btn => {
+    btn.disabled = false;
+  });
+  
+  // Reset progress
+  document.querySelectorAll('.progress-item').forEach((item, index) => {
+    item.classList.remove('complete', 'current');
+    item.querySelector('.progress-icon').textContent = index + 1;
+  });
+  
+  // Go to page 1
+  goToPage(1);
+}
+
+// EXERCISE 1
+document.getElementById('checkEx1')?.addEventListener('click', function() {
+  const items = document.querySelectorAll('#ex1List input[type="checkbox"]');
+  const anyChecked = [...items].some(item => item.checked);
+  
+  if (!anyChecked) {
+    const feedback = document.getElementById('feedbackEx1');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please tick at least one feature first!';
+    return;
+  }
+  
+  let allCorrect = true;
+  let correctCount = 0;
+  
+  items.forEach(item => {
+    const parent = item.closest('.feature-item');
+    const isChecked = item.checked;
+    const shouldBeChecked = item.dataset.correct === 'true';
+    
+    parent.classList.remove('checked', 'error-highlight');
+    
+    if (isChecked) {
+      if (shouldBeChecked) {
+        parent.classList.add('checked');
+        correctCount++;
+      } else {
+        parent.classList.add('error-highlight');
+        allCorrect = false;
+      }
+    } else if (shouldBeChecked) {
+      allCorrect = false;
+    }
+  });
+  
+  const feedback = document.getElementById('feedbackEx1');
+  if (allCorrect && correctCount === 4) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! The email has: date (Nov 2025), percentages (85%), named sources (survey + platform), and linked facts.';
+    this.disabled = true;
+    updateProgress(1);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Not quite. Look for: date stated, percentage in words+numbers, sources named (survey/platform), no "I think".';
+  }
+});
+
+// EXERCISE 2
+document.getElementById('checkEx2')?.addEventListener('click', function() {
+  const items = document.querySelectorAll('#ex2List input[type="checkbox"]');
+  const anyChecked = [...items].some(item => item.checked);
+  
+  if (!anyChecked) {
+    const feedback = document.getElementById('feedbackEx2');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please tick at least one item first!';
+    return;
+  }
+  
+  let allCorrect = true;
+  let correctCount = 0;
+  
+  items.forEach(item => {
+    const parent = item.closest('.feature-item');
+    const isChecked = item.checked;
+    const shouldBeChecked = item.dataset.correct === 'true';
+    
+    parent.classList.remove('checked', 'error-highlight');
+    
+    if (isChecked) {
+      if (shouldBeChecked) {
+        parent.classList.add('checked');
+        correctCount++;
+      } else {
+        parent.classList.add('error-highlight');
+        allCorrect = false;
+      }
+    } else if (shouldBeChecked) {
+      allCorrect = false;
+    }
+  });
+  
+  const feedback = document.getElementById('feedbackEx2');
+  if (allCorrect && correctCount === 4) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Correct! The email is missing: source name, date, numbers/percentages, and uses "I think" (personal opinion).';
+    this.disabled = true;
+    updateProgress(2);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check again. The email says "most students" and "a lot of people" but never says WHERE this came from (survey? forum?).';
+  }
+});
+
+// EXERCISE 3
+document.getElementById('checkEx3')?.addEventListener('click', function() {
+  const items = document.querySelectorAll('#ex3List input[type="checkbox"]');
+  const anyChecked = [...items].some(item => item.checked);
+  
+  if (!anyChecked) {
+    const feedback = document.getElementById('feedbackEx3');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please tick at least one feature first!';
+    return;
+  }
+  
+  let allCorrect = true;
+  let correctCount = 0;
+  
+  items.forEach(item => {
+    const parent = item.closest('.feature-item');
+    const isChecked = item.checked;
+    const shouldBeChecked = item.dataset.correct === 'true';
+    
+    parent.classList.remove('checked', 'error-highlight');
+    
+    if (isChecked) {
+      if (shouldBeChecked) {
+        parent.classList.add('checked');
+        correctCount++;
+      } else {
+        parent.classList.add('error-highlight');
+        allCorrect = false;
+      }
+    } else if (shouldBeChecked) {
+      allCorrect = false;
+    }
+  });
+  
+  const feedback = document.getElementById('feedbackEx3');
+  if (allCorrect && correctCount === 3) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Excellent! Email B is better because it names sources, gives specific numbers and states data date.';
+    this.disabled = true;
+    updateProgress(3);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Email B has 3 key features: (1) names sources, (2) gives specific numbers, (3) states data date. Email A has none.';
+  }
+});
+
+// EXERCISE 4
+document.getElementById('checkEx4')?.addEventListener('click', function() {
+  const items = document.querySelectorAll('#ex4List input[type="checkbox"]');
+  const anyChecked = [...items].some(item => item.checked);
+  
+  if (!anyChecked) {
+    const feedback = document.getElementById('feedbackEx4');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please tick at least one sentence first!';
+    return;
+  }
+  
+  let allCorrect = true;
+  let correctCount = 0;
+  
+  items.forEach(item => {
+    const parent = item.closest('.feature-item');
+    const isChecked = item.checked;
+    const shouldBeChecked = item.dataset.correct === 'true';
+    
+    parent.classList.remove('checked', 'error-highlight');
+    
+    if (isChecked) {
+      if (shouldBeChecked) {
+        parent.classList.add('checked');
+        correctCount++;
+      } else {
+        parent.classList.add('error-highlight');
+        allCorrect = false;
+      }
+    } else if (shouldBeChecked) {
+      allCorrect = false;
+    }
+  });
+  
+  const feedback = document.getElementById('feedbackEx4');
+  if (allCorrect && correctCount === 3) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! Sentences 1, 3, and 5 have citations. Sentence 2 ("many people") and 4 ("I believe") do NOT cite sources.';
+    this.disabled = true;
+    updateProgress(4);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Look for citation phrases: "According to...", "Feedback from...", "The survey...". Sentences 2 and 4 have NO citations.';
+  }
+});
+
+// EXERCISE 5
+document.getElementById('checkEx5')?.addEventListener('click', function() {
+  const items = document.querySelectorAll('#ex5List input[type="checkbox"]');
+  const anyChecked = [...items].some(item => item.checked);
+  
+  if (!anyChecked) {
+    const feedback = document.getElementById('feedbackEx5');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please tick at least one feature first!';
+    return;
+  }
+  
+  let allCorrect = true;
+  let correctCount = 0;
+  
+  items.forEach(item => {
+    const parent = item.closest('.feature-item');
+    const isChecked = item.checked;
+    const shouldBeChecked = item.dataset.correct === 'true';
+    
+    parent.classList.remove('checked', 'error-highlight');
+    
+    if (isChecked) {
+      if (shouldBeChecked) {
+        parent.classList.add('checked');
+        correctCount++;
+      } else {
+        parent.classList.add('error-highlight');
+        allCorrect = false;
+      }
+    } else if (shouldBeChecked) {
+      allCorrect = false;
+    }
+  });
+  
+  const feedback = document.getElementById('feedbackEx5');
+  if (allCorrect && correctCount === 5) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 AMAZING! You found all 5 features: exact dates, multiple citation phrases, percentages in words, different sources, and linked recommendations. You\'re a citation expert!';
+    this.disabled = true;
+    updateProgress(5);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Almost! This email has 5 good features. It does NOT use "I think" or "I believe". Look for dates, citation phrases, percentages, sources, and linked recommendations.';
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>(Extended Practice) Step 2 - Collecting Citation Phrases</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{
+  --bg1:#fff9f0;
+  --bg2:#f0f9ff;
+  --bg3:#f0fdf4;
+  --bg4:#fffef0;
+  --accent:#ff8c00;
+  --accent-2:#ffb347;
+  --accent-light:#ffd699;
+  --blue:#3b82f6;
+  --blue-light:#dbeafe;
+  --green:#10b981;
+  --green-light:#d1fae5;
+  --yellow:#fbbf24;
+  --yellow-light:#fef3c7;
+  --pink:#ec4899;
+  --ink:#4a2c2a;
+  --ink-light:#6e5a52;
+  --muted:#8b7355;
+  --card-bg: rgba(255,255,255,0.96);
+  --shadow: 0 10px 30px rgba(74,44,42,0.1);
+  --shadow-soft: 0 4px 12px rgba(74,44,42,0.08);
+  --radius: 18px;
+  --success:#10b981;
+  --success-bg:#d1fae5;
+  --success-border:#6ee7b7;
+  --error:#dc2626;
+  --error-bg:#fee2e2;
+  --error-border:#fca5a5;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;}
+body{
+  font-family:'Poppins',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(135deg,#fffef9,#fafcff 50%,#fdfff7);
+  padding:clamp(12px,3vw,20px);
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:900px;
+  margin:0 auto;
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(16px,4vw,40px);
+  min-height:calc(100vh - 40px);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:clamp(20px,4vw,32px);
+}
+
+.badge{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.78rem;
+  background:linear-gradient(135deg,var(--blue-light),var(--yellow-light));
+  color:var(--blue);
+  margin-bottom:8px;
+  border:1px solid rgba(59,130,246,0.25);
+}
+
+h1{
+  font-size:clamp(1.5rem,5vw,2.4rem);
+  margin:0 0 10px;
+  color:var(--accent);
+  font-weight:700;
+  line-height:1.2;
+}
+
+.intro{
+  font-size:clamp(0.95rem,2.5vw,1.05rem);
+  color:var(--ink-light);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+/* Page System */
+.exercise-page{
+  display:none;
+}
+
+.exercise-page.active{
+  display:block;
+  animation:fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:none;}
+}
+
+.block{
+  background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,252,255,0.95));
+  border:1px solid rgba(59,130,246,0.12);
+  padding:clamp(16px,3.5vw,28px);
+  border-radius:15px;
+  box-shadow:var(--shadow-soft);
+  margin:16px 0;
+}
+
+h2{
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
+  margin:0 0 12px;
+  color:var(--ink);
+  font-weight:700;
+  line-height:1.3;
+}
+
+h3{
+  font-size:clamp(1rem,2.8vw,1.3rem);
+  margin:14px 0 10px;
+  color:var(--ink);
+  font-weight:600;
+  line-height:1.3;
+}
+
+h4{
+  font-size:clamp(0.95rem,2.5vw,1.1rem);
+  margin:12px 0 8px;
+  color:var(--blue);
+  font-weight:600;
+  line-height:1.4;
+}
+
+p{margin:0 0 0.9rem;line-height:1.6;}
+
+.small{font-size:clamp(0.85rem,2.2vw,0.9rem);color:var(--muted);line-height:1.5;}
+
+.chip{
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  border:2px solid rgba(59,130,246,0.25);
+  border-radius:999px;
+  padding:10px 14px;
+  font-size:clamp(0.82rem,2.2vw,0.9rem);
+  transition:all .25s ease;
+  cursor:pointer;
+  user-select:none;
+  display:inline-block;
+  margin:4px;
+  line-height:1.4;
+  word-break:break-word;
+}
+
+.chip:hover{
+  box-shadow:0 4px 12px rgba(59,130,246,0.2);
+  transform:translateY(-2px);
+}
+
+.chip.selected{
+  background:linear-gradient(135deg,var(--accent-light),var(--accent));
+  border-color:var(--accent);
+  border-width:3px;
+  color:#fff;
+  font-weight:700;
+  transform:scale(1.05);
+  box-shadow:0 6px 18px rgba(255,140,0,0.3);
+}
+
+.chip.correct{
+  background:var(--success-bg);
+  border-color:var(--success);
+  color:#065f46;
+  font-weight:600;
+  cursor:default;
+}
+
+.chip.incorrect{
+  background:var(--error-bg);
+  border-color:var(--error);
+  color:var(--error);
+  font-weight:600;
+  cursor:default;
+}
+
+.chip-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:14px 0;
+  padding:14px;
+  background:linear-gradient(135deg,rgba(255,249,240,0.5),rgba(240,249,255,0.5));
+  border-radius:12px;
+  min-height:70px;
+}
+
+.drop-zone{
+  background:#fff;
+  border:3px dashed rgba(59,130,246,0.3);
+  border-radius:12px;
+  padding:16px;
+  margin:12px 0;
+  min-height:100px;
+  transition:all .3s ease;
+}
+
+.drop-zone.survey-zone{
+  border-color:var(--blue);
+  background:linear-gradient(135deg,rgba(59,130,246,0.05),rgba(255,255,255,0.95));
+}
+
+.drop-zone.forum-zone{
+  border-color:var(--yellow);
+  background:linear-gradient(135deg,rgba(251,191,36,0.05),rgba(255,255,255,0.95));
+}
+
+.drop-zone h4{
+  margin:0 0 10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.zone-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+/* Sentence Builder for Ex5 */
+.sentence-area{
+  background:#fff;
+  border:3px solid var(--blue);
+  border-radius:12px;
+  padding:16px;
+  min-height:80px;
+  margin:12px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  align-items:center;
+}
+
+.sentence-area.empty{
+  justify-content:center;
+  align-items:center;
+}
+
+.sentence-area .placeholder{
+  color:var(--muted);
+  font-style:italic;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+}
+
+.word-chip{
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  border:2px solid rgba(59,130,246,0.3);
+  border-radius:20px;
+  padding:8px 14px;
+  font-size:clamp(0.82rem,2.2vw,0.9rem);
+  cursor:pointer;
+  transition:all .25s ease;
+  user-select:none;
+}
+
+.word-chip:hover{
+  box-shadow:0 4px 12px rgba(59,130,246,0.2);
+  transform:translateY(-2px);
+}
+
+.word-chip.in-sentence{
+  background:linear-gradient(135deg,var(--accent-light),var(--accent));
+  border-color:var(--accent);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.word-chip.disabled{
+  opacity:0.3;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
+.button-group{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin:16px 0;
+  flex-wrap:wrap;
+}
+
+.btn{
+  appearance:none;cursor:pointer;
+  border:1px solid rgba(59,130,246,0.15);
+  background:#fff;
+  padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,22px);
+  border-radius:12px;
+  font-weight:600;
+  color:var(--ink);
+  box-shadow:var(--shadow-soft);
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-family:'Poppins',system-ui,sans-serif;
+  white-space:nowrap;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(59,130,246,0.15);
+  border-color:var(--blue);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--pink),var(--blue));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 10px 28px rgba(236,72,153,0.3);
+}
+
+.btn.primary:hover{
+  box-shadow:0 12px 32px rgba(236,72,153,0.4);
+  transform:translateY(-3px);
+}
+
+.btn.secondary{
+  background:var(--blue-light);
+  color:var(--blue);
+  border-color:var(--blue);
+}
+
+.btn.restart{
+  background:var(--yellow-light);
+  color:#92400e;
+  border-color:var(--yellow);
+}
+
+.btn.clear{
+  background:var(--error-bg);
+  color:var(--error);
+  border-color:var(--error);
+}
+
+.btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none !important;
+  display:none;
+}
+
+.feedback{
+  margin-top:14px;
+  padding:12px 16px;
+  border-radius:10px;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-weight:600;
+  display:none;
+  line-height:1.5;
+}
+
+.feedback.show{
+  display:block;
+  animation:slideIn .3s ease;
+}
+
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(-5px);}
+  to{opacity:1;transform:none;}
+}
+
+.feedback.good{
+  background:var(--success-bg);
+  color:#065f46;
+  border:2px solid var(--success-border);
+}
+
+.feedback.bad{
+  background:var(--error-bg);
+  color:var(--error);
+  border:2px solid var(--error-border);
+}
+
+.feedback.info{
+  background:var(--blue-light);
+  color:#1e40af;
+  border:2px solid var(--blue);
+}
+
+.callout{
+  border-left:4px solid var(--blue);
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  padding:12px 14px;
+  border-radius:10px;
+  margin:14px 0;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+  box-shadow:var(--shadow-soft);
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+  line-height:1.6;
+}
+
+.callout.tip{
+  border-left-color:var(--yellow);
+  background:linear-gradient(135deg,var(--yellow-light),#fffbeb);
+}
+
+.callout ul{
+  margin:8px 0 0;
+  padding-left:1.3em;
+}
+
+.callout li{
+  margin:6px 0;
+}
+
+.progress-tracker{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
+  gap:10px;
+  background:linear-gradient(135deg,var(--green-light),var(--blue-light));
+  padding:14px;
+  border-radius:12px;
+  margin:20px 0;
+  box-shadow:var(--shadow-soft);
+}
+
+.progress-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  font-size:0.75rem;
+  font-weight:600;
+  color:var(--muted);
+  text-align:center;
+}
+
+.progress-item.complete{
+  color:var(--green);
+}
+
+.progress-item.current{
+  color:var(--blue);
+}
+
+.progress-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink:0;
+}
+
+.progress-item.current .progress-icon{
+  border:3px solid var(--blue);
+  box-shadow:0 0 0 4px rgba(59,130,246,0.15);
+}
+
+.phrase-bank{
+  background:linear-gradient(135deg,#fffbeb,#f0f9ff);
+  border:2px solid rgba(251,191,36,0.2);
+  border-radius:12px;
+  padding:14px;
+  margin:14px 0;
+}
+
+.phrase-row{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:10px;
+  background:#fff;
+  border-radius:8px;
+  margin:8px 0;
+  font-size:clamp(0.82rem,2.2vw,0.9rem);
+  line-height:1.5;
+}
+
+.phrase-icon{
+  font-size:1.1rem;
+  flex-shrink:0;
+  font-weight:700;
+}
+
+.fill-section{
+  margin:16px 0;
+}
+
+.fill-item{
+  background:#fff;
+  border:1px solid rgba(59,130,246,0.15);
+  border-radius:10px;
+  padding:14px;
+  margin:12px 0;
+  box-shadow:var(--shadow-soft);
+}
+
+.fill-item strong{
+  display:block;
+  margin-bottom:8px;
+  color:var(--blue);
+}
+
+.fill-item p{
+  margin:0;
+  line-height:1.8;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+}
+
+.blank-input{
+  display:inline-block;
+  width:100%;
+  max-width:400px;
+  padding:8px 12px;
+  border:2px solid rgba(59,130,246,0.3);
+  border-radius:8px;
+  font-family:inherit;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+  margin:6px 0;
+  transition:all .25s ease;
+}
+
+.blank-input:focus{
+  outline:none;
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(59,130,246,0.15);
+}
+
+.blank-input.correct{
+  border-color:var(--success);
+  background:var(--success-bg);
+}
+
+.blank-input.incorrect{
+  border-color:var(--error);
+  background:var(--error-bg);
+}
+
+select.blank-input{
+  cursor:pointer;
+  background:#fff;
+}
+
+.nav-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.nav-buttons .btn{
+  flex:1;
+  min-width:120px;
+}
+
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--blue);
+  font-weight:600;
+  text-decoration:none;
+  margin-top:24px;
+  padding:10px 16px;
+  border-radius:10px;
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+}
+
+.back-link:hover{
+  background:var(--blue-light);
+  transform:translateX(-4px);
+}
+
+@media(max-width:768px){
+  .button-group{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+  
+  .chip{
+    font-size:0.82rem;
+    padding:8px 12px;
+  }
+  
+  .progress-tracker{
+    grid-template-columns:repeat(3,1fr);
+  }
+  
+  .phrase-row{
+    font-size:0.82rem;
+    padding:8px;
+  }
+  
+  .nav-buttons{
+    flex-direction:column;
+  }
+  
+  .nav-buttons .btn{
+    width:100%;
+  }
+}
+
+@media(max-width:480px){
+  .progress-tracker{
+    grid-template-columns:repeat(2,1fr);
+  }
+  
+  .progress-item span{
+    font-size:0.7rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span class="badge">Step 2: Extended Practice</span>
+    <h1>📚 Collecting Citation Phrases</h1>
+    <p class="intro">Master using survey phrases and feedback phrases through 5 exercises</p>
+  </div>
+
+  <div class="progress-tracker" id="progressTracker">
+    <div class="progress-item current" id="prog1">
+      <div class="progress-icon">1</div>
+      <span>Sort</span>
+    </div>
+    <div class="progress-item" id="prog2">
+      <div class="progress-icon">2</div>
+      <span>Match</span>
+    </div>
+    <div class="progress-item" id="prog3">
+      <div class="progress-icon">3</div>
+      <span>Fill</span>
+    </div>
+    <div class="progress-item" id="prog4">
+      <div class="progress-icon">4</div>
+      <span>Build</span>
+    </div>
+    <div class="progress-item" id="prog5">
+      <div class="progress-icon">5</div>
+      <span>Arrange</span>
+    </div>
+  </div>
+
+  <!-- EXERCISE 1 -->
+  <div class="exercise-page active" data-page="1">
+    <div class="block">
+      <h2>Exercise 1: Sort Citation Phrases</h2>
+      <p class="small">Tap each phrase, then tap the correct category button. The phrase will move into the right box.</p>
+
+      <div class="chip-container" id="ex1Chips">
+        <div class="chip" data-type="survey">The survey conducted in Dec 2025 shows...</div>
+        <div class="chip" data-type="forum">Several customers mentioned that...</div>
+        <div class="chip" data-type="survey">Four out of five respondents (80%)...</div>
+        <div class="chip" data-type="forum">Comments from the feedback form...</div>
+        <div class="chip" data-type="survey">Based on the survey results...</div>
+        <div class="chip" data-type="forum">One staff member complained that...</div>
+        <div class="chip" data-type="survey">Around two-thirds (66%)...</div>
+        <div class="chip" data-type="forum">Forum posts show that...</div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn" id="ex1Survey" style="background:var(--blue-light);color:var(--blue);border-color:var(--blue);flex:1;">📊 Survey Phrase</button>
+        <button class="btn" id="ex1Forum" style="background:var(--yellow-light);color:#92400e;border-color:var(--yellow);flex:1;">💬 Feedback Phrase</button>
+      </div>
+
+      <div class="drop-zone survey-zone">
+        <h4><span>📊</span> <span>Survey Phrases</span></h4>
+        <div class="zone-chips" id="ex1SurveyZone">
+          <p class="small" style="margin:0;color:var(--muted);">Sorted phrases appear here...</p>
+        </div>
+      </div>
+
+      <div class="drop-zone forum-zone">
+        <h4><span>💬</span> <span>Feedback Phrases</span></h4>
+        <div class="zone-chips" id="ex1ForumZone">
+          <p class="small" style="margin:0;color:var(--muted);">Sorted phrases appear here...</p>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx1" style="display:none;width:100%;">Check My Sorting</button>
+      <div class="feedback" id="feedbackEx1"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)" disabled>← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="exercise-page" data-page="2">
+    <div class="block">
+      <h2>Exercise 2: Match Phrases to Contexts</h2>
+      <p class="small">For each situation, tap the BEST citation phrase to use.</p>
+
+      <div style="margin:16px 0;">
+        <h4>Situation 1: Report that 90% of the customers were satisfied</h4>
+        <div class="chip-container">
+          <div class="chip" data-answer="correct" data-q="1">According to the survey, nine out of ten (90%)...</div>
+          <div class="chip" data-answer="wrong" data-q="1">Comments from the forum show...</div>
+          <div class="chip" data-answer="wrong" data-q="1">Many people said that...</div>
+        </div>
+
+        <h4>Situation 2: Describe what customers wrote in forum</h4>
+        <div class="chip-container">
+          <div class="chip" data-answer="wrong" data-q="2">The survey shows three-quarters (75%)...</div>
+          <div class="chip" data-answer="correct" data-q="2">Feedback on the forum shows that...</div>
+          <div class="chip" data-answer="wrong" data-q="2">Based on the survey results...</div>
+        </div>
+
+        <h4>Situation 3: Cite a survey from October 2025</h4>
+        <div class="chip-container">
+          <div class="chip" data-answer="wrong" data-q="3">Several customers complained...</div>
+          <div class="chip" data-answer="wrong" data-q="3">One person mentioned that...</div>
+          <div class="chip" data-answer="correct" data-q="3">The survey conducted in October 2025 shows...</div>
+        </div>
+
+        <h4>Situation 4: Quote a customer complaint</h4>
+        <div class="chip-container">
+          <div class="chip" data-answer="wrong" data-q="4">Two-thirds (66%) of the respondents...</div>
+          <div class="chip" data-answer="correct" data-q="4">One customer mentioned on the forum...</div>
+          <div class="chip" data-answer="wrong" data-q="4">The survey results indicate...</div>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx2" style="width:100%;">Check My Answers</button>
+      <div class="feedback" id="feedbackEx2"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3 -->
+  <div class="exercise-page" data-page="3">
+    <div class="block">
+      <h2>Exercise 3: Complete the Phrases</h2>
+      <p class="small">Fill in the missing words to complete each citation phrase.</p>
+
+      <div class="fill-section">
+        <div class="fill-item">
+          <strong>1.</strong>
+          <p><input type="text" class="blank-input" id="blank1" placeholder="type here"> to the customer survey, 80% of the respondents were satisfied.</p>
+        </div>
+
+        <div class="fill-item">
+          <strong>2.</strong>
+          <p>Comments <input type="text" class="blank-input" id="blank2" placeholder="type here"> the forum show that service was slow.</p>
+        </div>
+
+        <div class="fill-item">
+          <strong>3.</strong>
+          <p>The survey <input type="text" class="blank-input" id="blank3" placeholder="type here"> in November 2025 shows...</p>
+        </div>
+
+        <div class="fill-item">
+          <strong>4.</strong>
+          <p><input type="text" class="blank-input" id="blank4" placeholder="type here"> on the survey results, we recommend...</p>
+        </div>
+
+        <div class="fill-item">
+          <strong>5.</strong>
+          <p>Several customers <input type="text" class="blank-input" id="blank5" placeholder="type here"> that the website was confusing.</p>
+        </div>
+
+        <div class="fill-item">
+          <strong>6.</strong>
+          <p>Three-quarters <input type="text" class="blank-input" id="blank6" placeholder="type here"> the respondents (75%) were unhappy.</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <strong>Hint:</strong> Common words: <em>According, from, conducted, Based, mentioned, of</em>
+      </div>
+
+      <button class="btn primary" id="checkEx3" style="width:100%;">Check My Answers</button>
+      <div class="feedback" id="feedbackEx3"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(2)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 4 -->
+  <div class="exercise-page" data-page="4">
+    <div class="block">
+      <h2>Exercise 4: Build Complete Sentences</h2>
+      <p class="small">Match each phrase starter with the correct ending.</p>
+
+      <div class="phrase-bank">
+        <h4>Phrase starters:</h4>
+        <div class="phrase-row">
+          <span class="phrase-icon">A.</span>
+          <span>According to the staff survey (Dec 2025),</span>
+        </div>
+        <div class="phrase-row">
+          <span class="phrase-icon">B.</span>
+          <span>Comments from the customer forum show that</span>
+        </div>
+        <div class="phrase-row">
+          <span class="phrase-icon">C.</span>
+          <span>The survey results indicate that</span>
+        </div>
+        <div class="phrase-row">
+          <span class="phrase-icon">D.</span>
+          <span>Feedback on the platform reveals that</span>
+        </div>
+      </div>
+
+      <div class="fill-section">
+        <div class="fill-item">
+          <strong>Phrase A ends with:</strong>
+          <select class="blank-input" id="match1">
+            <option value="">-- select --</option>
+            <option value="wrong1">customers complained about waiting.</option>
+            <option value="correct1">seven out of ten (70%) employees want flexible hours.</option>
+            <option value="wrong2">one person said the app crashed.</option>
+          </select>
+        </div>
+
+        <div class="fill-item">
+          <strong>Phrase B ends with:</strong>
+          <select class="blank-input" id="match2">
+            <option value="">-- select --</option>
+            <option value="wrong3">two-thirds (65%) were satisfied.</option>
+            <option value="correct2">customers found checkout confusing.</option>
+            <option value="wrong4">the survey was in November.</option>
+          </select>
+        </div>
+
+        <div class="fill-item">
+          <strong>Phrase C ends with:</strong>
+          <select class="blank-input" id="match3">
+            <option value="">-- select --</option>
+            <option value="wrong5">several customers mentioned slow delivery.</option>
+            <option value="wrong6">one staff member complained.</option>
+            <option value="correct3">nearly nine-tenths (85%) of the respondents were unhappy with quality.</option>
+          </select>
+        </div>
+
+        <div class="fill-item">
+          <strong>Phrase D ends with:</strong>
+          <select class="blank-input" id="match4">
+            <option value="">-- select --</option>
+            <option value="correct4">users experienced technical errors.</option>
+            <option value="wrong7">four out of five (80%) agreed.</option>
+            <option value="wrong8">satisfaction increased.</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx4" style="width:100%;">Check My Answers</button>
+      <div class="feedback" id="feedbackEx4"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(3)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 5: REARRANGE SENTENCES -->
+  <div class="exercise-page" data-page="5">
+    <div class="block">
+      <h2>Exercise 5: Arrange the Words</h2>
+      <p class="small">Click the words in the correct order to form complete citation sentences.</p>
+
+      <!-- SENTENCE 1 -->
+      <div style="margin:20px 0;">
+        <h4>Sentence 1:</h4>
+        <div class="sentence-area empty" id="sentence1" data-sentence="1">
+          <span class="placeholder">Click words below to build your sentence...</span>
+        </div>
+        <div class="chip-container" id="words1">
+          <div class="word-chip" data-sentence="1" data-order="1">According to</div>
+          <div class="word-chip" data-sentence="1" data-order="2">the hotel survey</div>
+          <div class="word-chip" data-sentence="1" data-order="3">(Dec 2025),</div>
+          <div class="word-chip" data-sentence="1" data-order="4">seven out of ten</div>
+          <div class="word-chip" data-sentence="1" data-order="5">guests (70%)</div>
+          <div class="word-chip" data-sentence="1" data-order="6">were unhappy with</div>
+          <div class="word-chip" data-sentence="1" data-order="7">the breakfast.</div>
+        </div>
+      </div>
+
+      <!-- SENTENCE 2 -->
+      <div style="margin:20px 0;">
+        <h4>Sentence 2:</h4>
+        <div class="sentence-area empty" id="sentence2" data-sentence="2">
+          <span class="placeholder">Click words below to build your sentence...</span>
+        </div>
+        <div class="chip-container" id="words2">
+          <div class="word-chip" data-sentence="2" data-order="1">Comments from</div>
+          <div class="word-chip" data-sentence="2" data-order="2">the customer forum</div>
+          <div class="word-chip" data-sentence="2" data-order="3">show that</div>
+          <div class="word-chip" data-sentence="2" data-order="4">parking was</div>
+          <div class="word-chip" data-sentence="2" data-order="5">very difficult</div>
+          <div class="word-chip" data-sentence="2" data-order="6">to find.</div>
+        </div>
+      </div>
+
+      <!-- SENTENCE 3 -->
+      <div style="margin:20px 0;">
+        <h4>Sentence 3:</h4>
+        <div class="sentence-area empty" id="sentence3" data-sentence="3">
+          <span class="placeholder">Click words below to build your sentence...</span>
+        </div>
+        <div class="chip-container" id="words3">
+          <div class="word-chip" data-sentence="3" data-order="1">Based on</div>
+          <div class="word-chip" data-sentence="3" data-order="2">the staff survey</div>
+          <div class="word-chip" data-sentence="3" data-order="3">(Nov 2025),</div>
+          <div class="word-chip" data-sentence="3" data-order="4">slightly more than</div>
+          <div class="word-chip" data-sentence="3" data-order="5">four-fifths (85%)</div>
+          <div class="word-chip" data-sentence="3" data-order="6">of the employees</div>
+          <div class="word-chip" data-sentence="3" data-order="7">want better</div>
+          <div class="word-chip" data-sentence="3" data-order="8">training programs.</div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn clear" id="clearEx5" style="flex:1;">Clear All Sentences</button>
+        <button class="btn primary" id="checkEx5" style="flex:1;">Check My Sentences</button>
+      </div>
+      <div class="feedback" id="feedbackEx5"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(4)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- COMPLETION PAGE -->
+  <div class="exercise-page" data-page="complete">
+    <div class="block">
+      <h2 style="color:var(--success);text-align:center;">🎉 All Exercises Completed!</h2>
+      <p style="text-align:center;font-size:clamp(1rem,2.5vw,1.1rem);margin:16px 0;">You've mastered citation phrases!</p>
+      
+      <div class="callout tip">
+        <h3>✅ What you've learned:</h3>
+        <ul>
+          <li>Sort survey phrases from feedback phrases</li>
+          <li>Match phrases to the right context</li>
+          <li>Complete citation phrases correctly</li>
+          <li>Build full sentences with proper citations</li>
+          <li>Arrange words to create complete citation sentences</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn primary" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="window.close()">✓ Finish</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">
+    <span>←</span>
+    <span>Back to Main Guide</span>
+  </a>
+</div>
+
+<script>
+// Shuffle function to randomize word order
+function shuffleWords() {
+  // Shuffle sentence 1
+  const words1 = document.getElementById('words1');
+  const chips1 = Array.from(words1.querySelectorAll('.word-chip'));
+  shuffleArray(chips1);
+  chips1.forEach(chip => words1.appendChild(chip));
+  
+  // Shuffle sentence 2
+  const words2 = document.getElementById('words2');
+  const chips2 = Array.from(words2.querySelectorAll('.word-chip'));
+  shuffleArray(chips2);
+  chips2.forEach(chip => words2.appendChild(chip));
+  
+  // Shuffle sentence 3
+  const words3 = document.getElementById('words3');
+  const chips3 = Array.from(words3.querySelectorAll('.word-chip'));
+  shuffleArray(chips3);
+  chips3.forEach(chip => words3.appendChild(chip));
+}
+
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Call shuffle when page loads
+window.addEventListener('DOMContentLoaded', function() {
+  shuffleWords();
+});
+
+let completedCount = 0;
+let completedExercises = new Set();
+let selectedChip = null;
+let ex1Sorted = {};
+let currentPage = 1;
+
+// Exercise 5: Sentence building
+let sentenceStates = {
+  1: [],
+  2: [],
+  3: []
+};
+
+function fireConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function fireBigConfetti() {
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.5 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function updateProgress(exerciseNum) {
+  const progItem = document.getElementById('prog' + exerciseNum);
+  progItem.classList.add('complete');
+  progItem.classList.remove('current');
+  progItem.querySelector('.progress-icon').textContent = '✓';
+  
+  completedExercises.add(exerciseNum);
+  
+  setTimeout(fireConfetti, 300);
+  
+  if (completedExercises.size === 5) {
+    setTimeout(() => {
+      goToPage('complete');
+      fireBigConfetti();
+    }, 1500);
+  }
+}
+
+function goToPage(pageNum) {
+  document.querySelectorAll('.exercise-page').forEach(page => {
+    page.classList.remove('active');
+  });
+  
+  const targetPage = document.querySelector(`[data-page="${pageNum}"]`);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    currentPage = pageNum;
+    
+    document.querySelectorAll('.progress-item').forEach((item, index) => {
+      item.classList.remove('current');
+      if (index + 1 === pageNum && pageNum !== 'complete') {
+        item.classList.add('current');
+      }
+    });
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function restartAll() {
+  completedExercises.clear();
+  selectedChip = null;
+  ex1Sorted = {};
+  sentenceStates = { 1: [], 2: [], 3: [] };
+  
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.classList.remove('selected', 'correct', 'incorrect');
+    chip.style.display = '';
+  });
+  
+  document.querySelectorAll('.word-chip').forEach(chip => {
+    chip.classList.remove('in-sentence', 'disabled');
+  });
+  
+  document.querySelectorAll('.feedback').forEach(fb => {
+    fb.classList.remove('show');
+  });
+  
+  document.querySelectorAll('.btn.primary').forEach(btn => {
+    btn.disabled = false;
+    btn.style.display = '';
+  });
+  
+  document.querySelectorAll('input, select').forEach(input => {
+    input.value = '';
+    input.className = input.className.replace(/correct|incorrect/g, '').trim();
+  });
+  
+  document.getElementById('ex1SurveyZone').innerHTML = '<p class="small" style="margin:0;color:var(--muted);">Sorted phrases appear here...</p>';
+  document.getElementById('ex1ForumZone').innerHTML = '<p class="small" style="margin:0;color:var(--muted);">Sorted phrases appear here...</p>';
+  document.getElementById('checkEx1').style.display = 'none';
+  
+  // Reset sentence areas
+  ['sentence1', 'sentence2', 'sentence3'].forEach(id => {
+    const area = document.getElementById(id);
+    area.classList.add('empty');
+    area.innerHTML = '<span class="placeholder">Click words below to build your sentence...</span>';
+  });
+  
+  document.querySelectorAll('.progress-item').forEach((item, index) => {
+    item.classList.remove('complete', 'current');
+    item.querySelector('.progress-icon').textContent = index + 1;
+  });
+  
+  goToPage(1);
+}
+
+// EXERCISE 1: SORTING
+document.querySelectorAll('#ex1Chips .chip').forEach(chip => {
+  chip.addEventListener('click', function() {
+    if (this.classList.contains('correct') || this.classList.contains('incorrect')) return;
+    
+    document.querySelectorAll('#ex1Chips .chip').forEach(c => {
+      if (!c.classList.contains('correct') && !c.classList.contains('incorrect')) {
+        c.classList.remove('selected');
+      }
+    });
+    
+    this.classList.add('selected');
+    selectedChip = this;
+  });
+});
+
+document.getElementById('ex1Survey')?.addEventListener('click', function() {
+  if (!selectedChip) return;
+  
+  const correctType = selectedChip.dataset.type;
+  ex1Sorted[selectedChip.textContent] = 'survey';
+  
+  selectedChip.style.display = 'none';
+  const zone = document.getElementById('ex1SurveyZone');
+  if (zone.querySelector('.small')) zone.innerHTML = '';
+  
+  const chipClone = document.createElement('div');
+  chipClone.className = 'chip';
+  chipClone.textContent = selectedChip.textContent;
+  chipClone.dataset.correct = correctType === 'survey' ? 'yes' : 'no';
+  zone.appendChild(chipClone);
+  
+  selectedChip = null;
+  checkIfEx1Complete();
+});
+
+document.getElementById('ex1Forum')?.addEventListener('click', function() {
+  if (!selectedChip) return;
+  
+  const correctType = selectedChip.dataset.type;
+  ex1Sorted[selectedChip.textContent] = 'forum';
+  
+  selectedChip.style.display = 'none';
+  const zone = document.getElementById('ex1ForumZone');
+  if (zone.querySelector('.small')) zone.innerHTML = '';
+  
+  const chipClone = document.createElement('div');
+  chipClone.className = 'chip';
+  chipClone.textContent = selectedChip.textContent;
+  chipClone.dataset.correct = correctType === 'forum' ? 'yes' : 'no';
+  zone.appendChild(chipClone);
+  
+  selectedChip = null;
+  checkIfEx1Complete();
+});
+
+function checkIfEx1Complete() {
+  const allChips = document.querySelectorAll('#ex1Chips .chip');
+  const allSorted = [...allChips].every(c => c.style.display === 'none');
+  
+  if (allSorted) {
+    document.getElementById('checkEx1').style.display = 'block';
+  }
+}
+
+document.getElementById('checkEx1')?.addEventListener('click', function() {
+  const surveyChips = document.querySelectorAll('#ex1SurveyZone .chip');
+  const forumChips = document.querySelectorAll('#ex1ForumZone .chip');
+  
+  let allCorrect = true;
+  
+  surveyChips.forEach(chip => {
+    if (chip.dataset.correct === 'yes') {
+      chip.classList.add('correct');
+    } else {
+      chip.classList.add('incorrect');
+      allCorrect = false;
+    }
+  });
+  
+  forumChips.forEach(chip => {
+    if (chip.dataset.correct === 'yes') {
+      chip.classList.add('correct');
+    } else {
+      chip.classList.add('incorrect');
+      allCorrect = false;
+    }
+  });
+  
+  const feedback = document.getElementById('feedbackEx1');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! Survey phrases = numbers/percentages. Feedback phrases = comments. All sorted correctly!';
+    this.disabled = true;
+    updateProgress(1);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Some are wrong. Survey phrases have percentages (80%, two-thirds). Feedback phrases describe what people said (mentioned, complained).';
+  }
+});
+
+// EXERCISE 2: MATCHING
+document.querySelectorAll('[data-q]').forEach(chip => {
+  chip.addEventListener('click', function() {
+    const q = this.dataset.q;
+    
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(c => {
+      c.classList.remove('selected');
+    });
+    
+    this.classList.add('selected');
+  });
+});
+
+document.getElementById('checkEx2')?.addEventListener('click', function() {
+  const selections = {
+    1: document.querySelector('[data-q="1"].selected'),
+    2: document.querySelector('[data-q="2"].selected'),
+    3: document.querySelector('[data-q="3"].selected'),
+    4: document.querySelector('[data-q="4"].selected')
+  };
+  
+  if (!selections[1] || !selections[2] || !selections[3] || !selections[4]) {
+    const feedback = document.getElementById('feedbackEx2');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please select an answer for all 4 situations first!';
+    return;
+  }
+  
+  let allCorrect = true;
+  
+  Object.values(selections).forEach(chip => {
+    const parent = chip.parentElement;
+    parent.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    
+    if (chip.dataset.answer === 'correct') {
+      chip.classList.add('correct');
+    } else {
+      chip.classList.add('incorrect');
+      allCorrect = false;
+    }
+  });
+  
+  const feedback = document.getElementById('feedbackEx2');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Excellent! You matched all phrases correctly. Survey = numbers, feedback = comments.';
+    this.disabled = true;
+    updateProgress(2);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check your answers. Use survey phrases for percentages (1 & 3). Use feedback phrases for comments (2 & 4).';
+  }
+});
+
+// EXERCISE 3: FILL BLANKS
+document.getElementById('checkEx3')?.addEventListener('click', function() {
+  const answers = {
+    blank1: document.getElementById('blank1').value.trim().toLowerCase(),
+    blank2: document.getElementById('blank2').value.trim().toLowerCase(),
+    blank3: document.getElementById('blank3').value.trim().toLowerCase(),
+    blank4: document.getElementById('blank4').value.trim().toLowerCase(),
+    blank5: document.getElementById('blank5').value.trim().toLowerCase(),
+    blank6: document.getElementById('blank6').value.trim().toLowerCase()
+  };
+  
+  if (!answers.blank1 || !answers.blank2 || !answers.blank3 || !answers.blank4 || !answers.blank5 || !answers.blank6) {
+    const feedback = document.getElementById('feedbackEx3');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please fill in all 6 blanks first!';
+    return;
+  }
+  
+  const correct = {
+    blank1: answers.blank1 === 'according',
+    blank2: answers.blank2 === 'from',
+    blank3: answers.blank3 === 'conducted',
+    blank4: answers.blank4 === 'based',
+    blank5: answers.blank5 === 'mentioned',
+    blank6: answers.blank6 === 'of'
+  };
+  
+  Object.keys(correct).forEach(key => {
+    const input = document.getElementById(key);
+    input.className = 'blank-input ' + (correct[key] ? 'correct' : 'incorrect');
+  });
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx3');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! All correct: According to, from, conducted, Based, mentioned, of.';
+    this.disabled = true;
+    updateProgress(3);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Some wrong. Answers: (1) According (2) from (3) conducted (4) Based (5) mentioned (6) of.';
+  }
+});
+
+// EXERCISE 4: BUILD SENTENCES
+document.getElementById('checkEx4')?.addEventListener('click', function() {
+  const answers = {
+    match1: document.getElementById('match1').value,
+    match2: document.getElementById('match2').value,
+    match3: document.getElementById('match3').value,
+    match4: document.getElementById('match4').value
+  };
+  
+  if (!answers.match1 || !answers.match2 || !answers.match3 || !answers.match4) {
+    const feedback = document.getElementById('feedbackEx4');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please select an ending for all 4 phrases first!';
+    return;
+  }
+  
+  const correct = {
+    match1: answers.match1 === 'correct1',
+    match2: answers.match2 === 'correct2',
+    match3: answers.match3 === 'correct3',
+    match4: answers.match4 === 'correct4'
+  };
+  
+  Object.keys(correct).forEach(key => {
+    const select = document.getElementById(key);
+    select.className = 'blank-input ' + (correct[key] ? 'correct' : 'incorrect');
+  });
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx4');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Excellent! All matched: A=staff (70%), B=forum (confusing), C=survey (85%), D=platform (errors).';
+    this.disabled = true;
+    updateProgress(4);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check matches. Survey phrases (A & C) need percentages. Feedback phrases (B & D) need comment descriptions.';
+  }
+});
+
+// EXERCISE 5: REARRANGE SENTENCES
+document.querySelectorAll('.word-chip').forEach(chip => {
+  chip.addEventListener('click', function() {
+    if (this.classList.contains('disabled')) return;
+    
+    const sentenceNum = this.dataset.sentence;
+    const order = parseInt(this.dataset.order);
+    const area = document.getElementById('sentence' + sentenceNum);
+    
+    if (this.classList.contains('in-sentence')) {
+      // Remove from sentence
+      const index = sentenceStates[sentenceNum].indexOf(order);
+      if (index > -1) {
+        sentenceStates[sentenceNum].splice(index, 1);
+      }
+      this.classList.remove('in-sentence');
+    } else {
+      // Add to sentence
+      sentenceStates[sentenceNum].push(order);
+      this.classList.add('in-sentence');
+    }
+    
+    updateSentenceDisplay(sentenceNum);
+  });
+});
+
+function updateSentenceDisplay(sentenceNum) {
+  const area = document.getElementById('sentence' + sentenceNum);
+  const state = sentenceStates[sentenceNum];
+  
+  if (state.length === 0) {
+    area.classList.add('empty');
+    area.innerHTML = '<span class="placeholder">Click words below to build your sentence...</span>';
+  } else {
+    area.classList.remove('empty');
+    area.innerHTML = '';
+    
+    state.forEach(order => {
+      const originalChip = document.querySelector(`.word-chip[data-sentence="${sentenceNum}"][data-order="${order}"]`);
+      const displayChip = document.createElement('div');
+      displayChip.className = 'word-chip in-sentence';
+      displayChip.textContent = originalChip.textContent;
+      displayChip.dataset.order = order;
+      displayChip.addEventListener('click', function() {
+        const idx = sentenceStates[sentenceNum].indexOf(order);
+        if (idx > -1) {
+          sentenceStates[sentenceNum].splice(idx, 1);
+        }
+        originalChip.classList.remove('in-sentence');
+        updateSentenceDisplay(sentenceNum);
+      });
+      area.appendChild(displayChip);
+    });
+  }
+}
+
+document.getElementById('clearEx5')?.addEventListener('click', function() {
+  sentenceStates = { 1: [], 2: [], 3: [] };
+  
+  document.querySelectorAll('.word-chip').forEach(chip => {
+    chip.classList.remove('in-sentence', 'disabled');
+  });
+  
+  ['sentence1', 'sentence2', 'sentence3'].forEach(id => {
+    const area = document.getElementById(id);
+    area.classList.add('empty');
+    area.innerHTML = '<span class="placeholder">Click words below to build your sentence...</span>';
+  });
+  
+  const feedback = document.getElementById('feedbackEx5');
+  feedback.classList.remove('show');
+});
+
+document.getElementById('checkEx5')?.addEventListener('click', function() {
+  const allFilled = sentenceStates[1].length > 0 && sentenceStates[2].length > 0 && sentenceStates[3].length > 0;
+  
+  if (!allFilled) {
+    const feedback = document.getElementById('feedbackEx5');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all 3 sentences first!';
+    return;
+  }
+  
+  // Check if sentences are in correct order
+  const correct1 = JSON.stringify(sentenceStates[1]) === JSON.stringify([1,2,3,4,5,6,7]);
+  const correct2 = JSON.stringify(sentenceStates[2]) === JSON.stringify([1,2,3,4,5,6]);
+  const correct3 = JSON.stringify(sentenceStates[3]) === JSON.stringify([1,2,3,4,5,6,7,8]);
+  
+  const allCorrect = correct1 && correct2 && correct3;
+  
+  const feedback = document.getElementById('feedbackEx5');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! All sentences arranged correctly. You can now build proper citation sentences!';
+    this.disabled = true;
+    updateProgress(5);
+  } else {
+    feedback.className = 'feedback bad show';
+    let msg = '❌ Some sentences are in the wrong order. ';
+    if (!correct1) msg += 'Check Sentence 1. ';
+    if (!correct2) msg += 'Check Sentence 2. ';
+    if (!correct3) msg += 'Check Sentence 3. ';
+    msg += 'Use "Clear All Sentences" to try again.';
+    feedback.textContent = msg;
+  }
+});
+</script>
+
+</body>
+</html>

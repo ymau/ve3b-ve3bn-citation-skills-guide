@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>(Extended Practice) Step 4 - Linking Citations to Recommendations</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{
+  --bg1:#fff9f0;
+  --bg2:#f0f9ff;
+  --bg3:#f0fdf4;
+  --bg4:#fffef0;
+  --accent:#ff8c00;
+  --accent-2:#ffb347;
+  --accent-light:#ffd699;
+  --blue:#3b82f6;
+  --blue-light:#dbeafe;
+  --green:#10b981;
+  --green-light:#d1fae5;
+  --yellow:#fbbf24;
+  --yellow-light:#fef3c7;
+  --pink:#ec4899;
+  --ink:#4a2c2a;
+  --ink-light:#6e5a52;
+  --muted:#8b7355;
+  --card-bg: rgba(255,255,255,0.96);
+  --shadow: 0 10px 30px rgba(74,44,42,0.1);
+  --shadow-soft: 0 4px 12px rgba(74,44,42,0.08);
+  --radius: 18px;
+  --success:#10b981;
+  --success-bg:#d1fae5;
+  --success-border:#6ee7b7;
+  --error:#dc2626;
+  --error-bg:#fee2e2;
+  --error-border:#fca5a5;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;}
+body{
+  font-family:'Poppins',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(135deg,#fffef9,#fafcff 50%,#fdfff7);
+  padding:clamp(12px,3vw,20px);
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:900px;
+  margin:0 auto;
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(16px,4vw,40px);
+  min-height:calc(100vh - 40px);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:clamp(20px,4vw,24px);
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.82rem;
+  background:linear-gradient(135deg,var(--blue-light),var(--yellow-light));
+  color:var(--blue);
+  margin-bottom:10px;
+  border:1px solid rgba(59,130,246,0.25);
+}
+
+h1{
+  font-size:clamp(1.5rem,4vw,2.2rem);
+  margin:0 0 12px;
+  color:var(--accent);
+  font-weight:700;
+  line-height:1.2;
+}
+
+.intro{
+  font-size:clamp(0.95rem,2.5vw,1.05rem);
+  color:var(--ink-light);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.exercise-page{
+  display:none;
+}
+
+.exercise-page.active{
+  display:block;
+  animation:fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:none;}
+}
+
+.block{
+  background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,252,255,0.95));
+  border:1px solid rgba(59,130,246,0.12);
+  padding:clamp(16px,3.5vw,28px);
+  border-radius:15px;
+  box-shadow:var(--shadow-soft);
+  margin-bottom:20px;
+}
+
+h2{
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
+  margin:0 0 12px;
+  color:var(--ink);
+  font-weight:700;
+}
+
+h3{
+  font-size:clamp(1rem,2.8vw,1.3rem);
+  margin:14px 0 10px;
+  color:var(--ink);
+  font-weight:600;
+}
+
+h4{
+  font-size:clamp(0.9rem,2.3vw,1rem);
+  margin:12px 0 8px;
+}
+
+p{margin:0 0 1rem;line-height:1.6;}
+
+.small{font-size:clamp(0.85rem,2.2vw,0.9rem);color:var(--muted);line-height:1.5;}
+
+.data-box{
+  background:#fff;
+  border:2px solid rgba(59,130,246,0.2);
+  border-radius:12px;
+  padding:16px;
+  margin:14px 0;
+  box-shadow:var(--shadow-soft);
+}
+
+.data-box h4{
+  margin:0 0 12px;
+  color:var(--blue);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.data-item{
+  padding:8px 12px;
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  border-radius:8px;
+  margin:6px 0;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  border:1px solid rgba(59,130,246,0.15);
+}
+
+.recommendation-builder{
+  background:#fff;
+  border:3px dashed var(--green);
+  border-radius:12px;
+  padding:16px;
+  margin:14px 0;
+  min-height:100px;
+}
+
+.recommendation-builder.filled{
+  border-style:solid;
+  background:linear-gradient(135deg,rgba(16,185,129,0.05),#fff);
+}
+
+.dropdown-sentence{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  line-height:2;
+}
+
+.dropdown-sentence select{
+  padding:6px 12px;
+  border:2px solid rgba(16,185,129,0.3);
+  border-radius:8px;
+  font-family:inherit;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+  cursor:pointer;
+  background:#fff;
+  min-width:150px;
+  max-width:100%;
+  transition:all .25s ease;
+}
+
+.dropdown-sentence select:focus{
+  outline:none;
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(16,185,129,0.15);
+}
+
+.dropdown-sentence select.correct{
+  border-color:var(--success);
+  background:var(--success-bg);
+}
+
+.dropdown-sentence select.incorrect{
+  border-color:var(--error);
+  background:var(--error-bg);
+}
+
+.matching-area{
+  display:grid;
+  gap:12px;
+  margin:16px 0;
+}
+
+.match-item{
+  background:#fff;
+  border:2px solid rgba(59,130,246,0.2);
+  border-radius:12px;
+  padding:14px;
+  box-shadow:var(--shadow-soft);
+}
+
+.match-item.correct{
+  border-color:var(--success);
+  background:var(--success-bg);
+}
+
+.match-item.incorrect{
+  border-color:var(--error);
+  background:var(--error-bg);
+}
+
+.match-item strong{
+  display:block;
+  margin-bottom:8px;
+  color:var(--blue);
+  font-size:clamp(0.9rem,2.3vw,1rem);
+}
+
+.match-item select{
+  width:100%;
+  padding:8px 12px;
+  border:2px solid rgba(59,130,246,0.3);
+  border-radius:8px;
+  font-family:inherit;
+  font-size:clamp(0.85rem,2.2vw,0.9rem);
+  cursor:pointer;
+  background:#fff;
+  transition:all .25s ease;
+}
+
+.match-item select:focus{
+  outline:none;
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(59,130,246,0.15);
+}
+
+.chip{
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  border:2px solid rgba(59,130,246,0.25);
+  border-radius:999px;
+  padding:10px 14px;
+  font-size:clamp(0.82rem,2.2vw,0.9rem);
+  cursor:pointer;
+  transition:all .25s ease;
+  user-select:none;
+  display:inline-block;
+  margin:4px;
+}
+
+.chip:hover{
+  box-shadow:0 4px 12px rgba(59,130,246,0.2);
+  transform:translateY(-2px);
+}
+
+.chip.selected{
+  background:linear-gradient(135deg,var(--accent-light),var(--accent));
+  border-color:var(--accent);
+  color:#fff;
+  font-weight:600;
+}
+
+.chip.correct{
+  background:var(--success-bg);
+  border-color:var(--success);
+  color:#065f46;
+  font-weight:600;
+  cursor:default;
+}
+
+.chip.incorrect{
+  background:var(--error-bg);
+  border-color:var(--error);
+  color:var(--error);
+  font-weight:600;
+  cursor:default;
+}
+
+.btn{
+  appearance:none;cursor:pointer;
+  border:1px solid rgba(59,130,246,0.15);
+  background:#fff;
+  padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,22px);
+  border-radius:12px;
+  font-weight:600;
+  color:var(--ink);
+  box-shadow:var(--shadow-soft);
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-family:'Poppins',system-ui,sans-serif;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(59,130,246,0.15);
+  border-color:var(--blue);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--pink),var(--blue));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 10px 28px rgba(236,72,153,0.3);
+}
+
+.btn.primary:hover{
+  box-shadow:0 12px 32px rgba(236,72,153,0.4);
+  transform:translateY(-3px);
+}
+
+.btn.secondary{
+  background:var(--blue-light);
+  color:var(--blue);
+  border-color:var(--blue);
+}
+
+.btn.restart{
+  background:var(--yellow-light);
+  color:#92400e;
+  border-color:var(--yellow);
+}
+
+.btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none !important;
+  display:none;
+}
+
+.feedback{
+  margin-top:14px;
+  padding:12px 16px;
+  border-radius:10px;
+  font-size:clamp(0.85rem,2.2vw,0.92rem);
+  font-weight:600;
+  display:none;
+  line-height:1.5;
+}
+
+.feedback.show{
+  display:block;
+  animation:slideIn .3s ease;
+}
+
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(-5px);}
+  to{opacity:1;transform:none;}
+}
+
+.feedback.good{
+  background:var(--success-bg);
+  color:#065f46;
+  border:2px solid var(--success-border);
+}
+
+.feedback.bad{
+  background:var(--error-bg);
+  color:var(--error);
+  border:2px solid var(--error-border);
+}
+
+.feedback.info{
+  background:var(--blue-light);
+  color:#1e40af;
+  border:2px solid var(--blue);
+}
+
+.callout{
+  border-left:5px solid var(--blue);
+  background:linear-gradient(135deg,var(--blue-light),#f0f9ff);
+  padding:12px 14px;
+  border-radius:12px;
+  margin:14px 0;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+  box-shadow:var(--shadow-soft);
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.callout.tip{
+  border-left-color:var(--yellow);
+  background:linear-gradient(135deg,var(--yellow-light),#fffbeb);
+}
+
+.callout ul{
+  margin:8px 0 0;
+  padding-left:1.3em;
+}
+
+.progress-tracker{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(8px,2vw,16px);
+  background:linear-gradient(135deg,var(--green-light),var(--blue-light));
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow-soft);
+  flex-wrap:wrap;
+}
+
+.progress-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  font-size:0.75rem;
+  font-weight:600;
+  color:var(--muted);
+  text-align:center;
+}
+
+.progress-item.complete{
+  color:var(--green);
+}
+
+.progress-item.current{
+  color:var(--blue);
+}
+
+.progress-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink:0;
+}
+
+.progress-item.current .progress-icon{
+  border:3px solid var(--blue);
+  box-shadow:0 0 0 4px rgba(59,130,246,0.15);
+}
+
+.nav-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.nav-buttons .btn{
+  flex:1;
+  min-width:120px;
+}
+
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--blue);
+  font-weight:600;
+  text-decoration:none;
+  margin-top:24px;
+  padding:10px 16px;
+  border-radius:10px;
+  transition:all .25s ease;
+  font-size:clamp(0.85rem,2.2vw,0.95rem);
+}
+
+.back-link:hover{
+  background:var(--blue-light);
+  transform:translateX(-4px);
+}
+
+@media(max-width:640px){
+  .progress-tracker{
+    gap:8px;
+  }
+  
+  .progress-item span{
+    font-size:0.7rem;
+  }
+  
+  .nav-buttons{
+    flex-direction:column;
+  }
+  
+  .nav-buttons .btn{
+    width:100%;
+  }
+  
+  .dropdown-sentence{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  
+  .dropdown-sentence select{
+    width:100%;
+    max-width:100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span class="badge">Step 4: Extended Practice</span>
+    <h1>💡 Linking Citations to Recommendations</h1>
+    <p class="intro">Complete 5 exercises to master connecting findings with recommendations</p>
+  </div>
+
+  <div class="progress-tracker" id="progressTracker">
+    <div class="progress-item current" id="prog1">
+      <div class="progress-icon">1</div>
+      <span>Link 1</span>
+    </div>
+    <div class="progress-item" id="prog2">
+      <div class="progress-icon">2</div>
+      <span>Link 2</span>
+    </div>
+    <div class="progress-item" id="prog3">
+      <div class="progress-icon">3</div>
+      <span>Match</span>
+    </div>
+    <div class="progress-item" id="prog4">
+      <div class="progress-icon">4</div>
+      <span>Build</span>
+    </div>
+    <div class="progress-item" id="prog5">
+      <div class="progress-icon">5</div>
+      <span>Complete</span>
+    </div>
+  </div>
+
+  <!-- EXERCISE 1 -->
+  <div class="exercise-page active" data-page="1">
+    <div class="block">
+      <h2>Exercise 1: Restaurant Waiting Time</h2>
+      <p class="small">Build a recommendation sentence that links to the survey finding.</p>
+      
+      <div class="data-box">
+        <h4>📊 Survey Finding</h4>
+        <div class="data-item">According to the customer survey (December 2025), slightly more than four-fifths (85%) of our customers were unhappy with waiting time.</div>
+      </div>
+
+      <div class="recommendation-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--green);font-weight:600;">Build your recommendation:</p>
+        <div class="dropdown-sentence">
+          <select id="ex1_part1">
+            <option value="">-- select --</option>
+            <option value="correct">Based on these findings,</option>
+            <option value="wrong1">I think</option>
+            <option value="wrong2">Therefore,</option>
+          </select>
+          <span>I recommend</span>
+          <select id="ex1_part2">
+            <option value="">-- select --</option>
+            <option value="wrong1">we should improve service.</option>
+            <option value="correct">hiring more kitchen staff to reduce waiting time.</option>
+            <option value="wrong2">making customers wait less.</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx1" style="width:100%;">Check My Recommendation</button>
+      <div class="feedback" id="feedbackEx1"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)" disabled>← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="exercise-page" data-page="2">
+    <div class="block">
+      <h2>Exercise 2: Library Opening Hours</h2>
+      <p class="small">Build a recommendation sentence linking to the survey data.</p>
+      
+      <div class="data-box">
+        <h4>📊 Survey Finding</h4>
+        <div class="data-item">Based on the student survey (November 2025), around two-thirds (66%) of the students want longer opening hours on weekends.</div>
+      </div>
+
+      <div class="recommendation-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--green);font-weight:600;">Build your recommendation:</p>
+        <div class="dropdown-sentence">
+          <select id="ex2_part1">
+            <option value="">-- select --</option>
+            <option value="wrong1">I suggest</option>
+            <option value="correct">Based on these findings,</option>
+            <option value="wrong2">In my opinion,</option>
+          </select>
+          <span>I recommend</span>
+          <select id="ex2_part2">
+            <option value="">-- select --</option>
+            <option value="wrong1">keeping the library open longer.</option>
+            <option value="wrong2">changing the schedule.</option>
+            <option value="correct">extending library hours until 8pm on Saturdays and Sundays.</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx2" style="width:100%;">Check My Recommendation</button>
+      <div class="feedback" id="feedbackEx2"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(1)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3 -->
+  <div class="exercise-page" data-page="3">
+    <div class="block">
+      <h2>Exercise 3: Match Findings to Recommendations</h2>
+      <p class="small">Match each survey finding with the best recommendation.</p>
+
+      <div class="matching-area">
+        <div class="match-item">
+          <strong>Finding 1:</strong> 75% of employees are unhappy with the office temperature.
+          <select id="match1">
+            <option value="">-- select recommendation --</option>
+            <option value="correct1">I recommend installing a better heating and cooling system.</option>
+            <option value="wrong1">I recommend hiring more staff.</option>
+            <option value="wrong2">I recommend extending working hours.</option>
+          </select>
+        </div>
+
+        <div class="match-item">
+          <strong>Finding 2:</strong> 80% of customers complained about slow delivery times.
+          <select id="match2">
+            <option value="">-- select recommendation --</option>
+            <option value="wrong3">I recommend improving product quality.</option>
+            <option value="correct2">I recommend hiring additional delivery drivers.</option>
+            <option value="wrong4">I recommend reducing prices.</option>
+          </select>
+        </div>
+
+        <div class="match-item">
+          <strong>Finding 3:</strong> 70% of guests were dissatisfied with breakfast options.
+          <select id="match3">
+            <option value="">-- select recommendation --</option>
+            <option value="wrong5">I recommend improving room cleanliness.</option>
+            <option value="wrong6">I recommend extending check-in hours.</option>
+            <option value="correct3">I recommend expanding the breakfast menu with more variety.</option>
+          </select>
+        </div>
+
+        <div class="match-item">
+          <strong>Finding 4:</strong> 85% of students said the library needs more study rooms.
+          <select id="match4">
+            <option value="">-- select recommendation --</option>
+            <option value="correct4">I recommend converting unused space into additional study rooms.</option>
+            <option value="wrong7">I recommend buying more books.</option>
+            <option value="wrong8">I recommend hiring more librarians.</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx3" style="width:100%;">Check My Matches</button>
+      <div class="feedback" id="feedbackEx3"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(2)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 4 -->
+  <div class="exercise-page" data-page="4">
+    <div class="block">
+      <h2>Exercise 4: Complete Email with Recommendation</h2>
+      <p class="small">Build a complete 2-sentence paragraph: Citation + Recommendation.</p>
+      
+      <div class="data-box">
+        <h4>📊 Data to Use</h4>
+        <div class="data-item"><strong>Source:</strong> Staff feedback survey (October 2025)</div>
+        <div class="data-item"><strong>Finding:</strong> 72% - want flexible working hours</div>
+      </div>
+
+      <div class="recommendation-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Sentence 1 (Citation):</p>
+        <div class="dropdown-sentence">
+          <select id="ex4_part1">
+            <option value="">-- select --</option>
+            <option value="correct">According to</option>
+            <option value="wrong1">I think</option>
+            <option value="wrong2">Based on my opinion,</option>
+          </select>
+          <span>the staff feedback survey (October 2025),</span>
+          <select id="ex4_part2">
+            <option value="">-- select --</option>
+            <option value="correct">around three-quarters</option>
+            <option value="wrong1">most staff</option>
+            <option value="wrong2">many employees</option>
+          </select>
+          <select id="ex4_part3">
+            <option value="">-- select --</option>
+            <option value="correct">(72%)</option>
+            <option value="wrong1">(72 percent)</option>
+            <option value="wrong2">(about 72%)</option>
+          </select>
+          <span>of our staff want flexible working hours.</span>
+        </div>
+
+        <p class="small" style="margin:16px 0 12px;color:var(--green);font-weight:600;">Sentence 2 (Recommendation):</p>
+        <div class="dropdown-sentence">
+          <select id="ex4_part4">
+            <option value="">-- select --</option>
+            <option value="correct">Based on these findings,</option>
+            <option value="wrong3">Therefore,</option>
+            <option value="wrong4">I suggest</option>
+          </select>
+          <span>I recommend</span>
+          <select id="ex4_part5">
+            <option value="">-- select --</option>
+            <option value="wrong5">changing the policy.</option>
+            <option value="correct">implementing a flexible schedule policy allowing staff to choose their hours.</option>
+            <option value="wrong6">making work easier.</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx4" style="width:100%;">Check My Paragraph</button>
+      <div class="feedback" id="feedbackEx4"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(3)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)">Next →</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE 5 -->
+  <div class="exercise-page" data-page="5">
+    <div class="block">
+      <h2>Exercise 5: Full Report Paragraph</h2>
+      <p class="small">Build a complete paragraph with citation + recommendation for TWO different issues.</p>
+      
+      <div class="data-box">
+        <h4>📊 Issue 1: Customer Service</h4>
+        <div class="data-item"><strong>Finding:</strong> Customer survey (December 2025) shows 68% were unhappy with response time</div>
+      </div>
+
+      <div class="recommendation-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Issue 1 - Citation:</p>
+        <div class="dropdown-sentence">
+          <select id="ex5_part1">
+            <option value="">-- select --</option>
+            <option value="correct">According to</option>
+            <option value="wrong1">Based on what I think,</option>
+          </select>
+          <span>the customer survey (December 2025),</span>
+          <select id="ex5_part2">
+            <option value="">-- select --</option>
+            <option value="correct">around two-thirds (68%)</option>
+            <option value="wrong2">most customers</option>
+          </select>
+          <span>were unhappy with response time.</span>
+        </div>
+
+        <p class="small" style="margin:16px 0 12px;color:var(--green);font-weight:600;">Issue 1 - Recommendation:</p>
+        <div class="dropdown-sentence">
+          <select id="ex5_part3">
+            <option value="">-- select --</option>
+            <option value="correct">Based on these findings,</option>
+            <option value="wrong3">I think</option>
+          </select>
+          <span>I recommend</span>
+          <select id="ex5_part4">
+            <option value="">-- select --</option>
+            <option value="correct">hiring more customer service staff to reduce response time.</option>
+            <option value="wrong4">improving service quality.</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="data-box" style="margin-top:24px;">
+        <h4>💬 Issue 2: Website Issues</h4>
+        <div class="data-item"><strong>Finding:</strong> Comments from online forum show customers found the checkout process confusing</div>
+      </div>
+
+      <div class="recommendation-builder">
+        <p class="small" style="margin-bottom:12px;color:var(--blue);font-weight:600;">Issue 2 - Citation:</p>
+        <div class="dropdown-sentence">
+          <select id="ex5_part5">
+            <option value="">-- select --</option>
+            <option value="correct">Comments from</option>
+            <option value="wrong5">The survey said</option>
+          </select>
+          <span>the online forum</span>
+          <select id="ex5_part6">
+            <option value="">-- select --</option>
+            <option value="correct">show that</option>
+            <option value="wrong6">indicates that</option>
+          </select>
+          <span>customers found the checkout process confusing.</span>
+        </div>
+
+        <p class="small" style="margin:16px 0 12px;color:var(--green);font-weight:600;">Issue 2 - Recommendation:</p>
+        <div class="dropdown-sentence">
+          <select id="ex5_part7">
+            <option value="">-- select --</option>
+            <option value="correct">Based on this feedback,</option>
+            <option value="wrong7">Therefore,</option>
+          </select>
+          <span>I recommend</span>
+          <select id="ex5_part8">
+            <option value="">-- select --</option>
+            <option value="correct">redesigning the checkout page with clearer instructions.</option>
+            <option value="wrong8">fixing the website.</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn primary" id="checkEx5" style="width:100%;">Check Full Report</button>
+      <div class="feedback" id="feedbackEx5"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn secondary" onclick="goToPage(4)">← Previous</button>
+      <button class="btn restart" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" onclick="goToPage(5)" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- COMPLETION PAGE -->
+  <div class="exercise-page" data-page="complete">
+    <div class="block">
+      <h2 style="color:var(--success);text-align:center;">🎉 All Exercises Completed!</h2>
+      <p style="text-align:center;font-size:clamp(1rem,2.5vw,1.1rem);margin:20px 0;">You've mastered linking citations to recommendations!</p>
+      
+      <div class="callout tip">
+        <h3>✅ What you've learned:</h3>
+        <ul>
+          <li>Use "Based on these findings" to link citations</li>
+          <li>Write specific, actionable recommendations</li>
+          <li>Match recommendations to survey findings</li>
+          <li>Build complete citation + recommendation paragraphs</li>
+          <li>Handle multiple issues in one report</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn primary" onclick="restartAll()">🔄 Start Over</button>
+      <button class="btn secondary" 
+onclick="window.close()">✓ Finish</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">
+    <span>←</span>
+    <span>Back to Main Guide</span>
+  </a>
+</div>
+
+<script>
+let completedExercises = new Set();
+let currentPage = 1;
+
+function fireConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function fireBigConfetti() {
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.5 },
+    colors: ['#ff8c00', '#3b82f6', '#10b981', '#fbbf24', '#ec4899']
+  });
+}
+
+function updateProgress(exerciseNum) {
+  const progItem = document.getElementById('prog' + exerciseNum);
+  progItem.classList.add('complete');
+  progItem.classList.remove('current');
+  progItem.querySelector('.progress-icon').textContent = '✓';
+  
+  completedExercises.add(exerciseNum);
+  
+  setTimeout(fireConfetti, 300);
+  
+  if (completedExercises.size === 5) {
+    setTimeout(() => {
+      goToPage('complete');
+      fireBigConfetti();
+    }, 1500);
+  }
+}
+
+function goToPage(pageNum) {
+  document.querySelectorAll('.exercise-page').forEach(page => {
+    page.classList.remove('active');
+  });
+  
+  const targetPage = document.querySelector(`[data-page="${pageNum}"]`);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    currentPage = pageNum;
+    
+    document.querySelectorAll('.progress-item').forEach((item, index) => {
+      item.classList.remove('current');
+      if (index + 1 === pageNum && pageNum !== 'complete') {
+        item.classList.add('current');
+      }
+    });
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function restartAll() {
+  completedExercises.clear();
+  
+  document.querySelectorAll('select').forEach(select => {
+    select.value = '';
+    select.className = '';
+  });
+  
+  document.querySelectorAll('.match-item').forEach(item => {
+    item.classList.remove('correct', 'incorrect');
+  });
+  
+  document.querySelectorAll('.feedback').forEach(fb => {
+    fb.classList.remove('show');
+  });
+  
+  document.querySelectorAll('.btn.primary').forEach(btn => {
+    btn.disabled = false;
+  });
+  
+  document.querySelectorAll('.progress-item').forEach((item, index) => {
+    item.classList.remove('complete', 'current');
+    item.querySelector('.progress-icon').textContent = index + 1;
+  });
+  
+  goToPage(1);
+}
+
+// EXERCISE 1
+document.getElementById('checkEx1')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex1_part1').value;
+  const part2 = document.getElementById('ex1_part2').value;
+  
+  if (!part1 || !part2) {
+    const feedback = document.getElementById('feedbackEx1');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts first!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct'
+  };
+  
+  document.getElementById('ex1_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex1_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx1');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect! You used "Based on these findings," and gave a specific, actionable recommendation!';
+    this.disabled = true;
+    updateProgress(1);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Use "Based on these findings," to link to the survey. Recommendation must be specific (hire more staff, not "improve service").';
+  }
+});
+
+// EXERCISE 2
+document.getElementById('checkEx2')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex2_part1').value;
+  const part2 = document.getElementById('ex2_part2').value;
+  
+  if (!part1 || !part2) {
+    const feedback = document.getElementById('feedbackEx2');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all parts first!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct'
+  };
+  
+  document.getElementById('ex2_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex2_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx2');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Excellent! Specific recommendation with clear details (8pm, Saturdays & Sundays)!';
+    this.disabled = true;
+    updateProgress(2);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Use "Based on these findings," and give specific details (exact times and days, not vague "longer hours").';
+  }
+});
+
+// EXERCISE 3
+document.getElementById('checkEx3')?.addEventListener('click', function() {
+  const match1 = document.getElementById('match1').value;
+  const match2 = document.getElementById('match2').value;
+  const match3 = document.getElementById('match3').value;
+  const match4 = document.getElementById('match4').value;
+  
+  if (!match1 || !match2 || !match3 || !match4) {
+    const feedback = document.getElementById('feedbackEx3');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please select recommendations for all 4 findings!';
+    return;
+  }
+  
+  const correct = {
+    match1: match1 === 'correct1',
+    match2: match2 === 'correct2',
+    match3: match3 === 'correct3',
+    match4: match4 === 'correct4'
+  };
+  
+  const items = document.querySelectorAll('.match-item');
+  items[0].className = 'match-item ' + (correct.match1 ? 'correct' : 'incorrect');
+  items[1].className = 'match-item ' + (correct.match2 ? 'correct' : 'incorrect');
+  items[2].className = 'match-item ' + (correct.match3 ? 'correct' : 'incorrect');
+  items[3].className = 'match-item ' + (correct.match4 ? 'correct' : 'incorrect');
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx3');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 All matched perfectly! Each recommendation directly addresses the problem found in the survey!';
+    this.disabled = true;
+    updateProgress(3);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check your matches. Recommendations must solve the specific problem: temperature→heating/cooling, delivery→drivers, breakfast→menu, study rooms→convert space.';
+  }
+});
+
+// EXERCISE 4
+document.getElementById('checkEx4')?.addEventListener('click', function() {
+  const part1 = document.getElementById('ex4_part1').value;
+  const part2 = document.getElementById('ex4_part2').value;
+  const part3 = document.getElementById('ex4_part3').value;
+  const part4 = document.getElementById('ex4_part4').value;
+  const part5 = document.getElementById('ex4_part5').value;
+  
+  if (!part1 || !part2 || !part3 || !part4 || !part5) {
+    const feedback = document.getElementById('feedbackEx4');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete both sentences!';
+    return;
+  }
+  
+  const correct = {
+    part1: part1 === 'correct',
+    part2: part2 === 'correct',
+    part3: part3 === 'correct',
+    part4: part4 === 'correct',
+    part5: part5 === 'correct'
+  };
+  
+  document.getElementById('ex4_part1').className = correct.part1 ? 'correct' : 'incorrect';
+  document.getElementById('ex4_part2').className = correct.part2 ? 'correct' : 'incorrect';
+  document.getElementById('ex4_part3').className = correct.part3 ? 'correct' : 'incorrect';
+  document.getElementById('ex4_part4').className = correct.part4 ? 'correct' : 'incorrect';
+  document.getElementById('ex4_part5').className = correct.part5 ? 'correct' : 'incorrect';
+  
+  const allCorrect = Object.values(correct).every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx4');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Perfect paragraph! Citation (According to + survey + date + percentage) + Recommendation (Based on findings + specific action)!';
+    this.disabled = true;
+    updateProgress(4);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Sentence 1: "According to" + "around three-quarters (72%)". Sentence 2: "Based on these findings," + specific policy details.';
+  }
+});
+
+// EXERCISE 5
+document.getElementById('checkEx5')?.addEventListener('click', function() {
+  const selects = ['ex5_part1', 'ex5_part2', 'ex5_part3', 'ex5_part4', 'ex5_part5', 'ex5_part6', 'ex5_part7', 'ex5_part8'];
+  const values = selects.map(id => document.getElementById(id).value);
+  
+  if (values.some(v => !v)) {
+    const feedback = document.getElementById('feedbackEx5');
+    feedback.className = 'feedback info show';
+    feedback.textContent = '⚠️ Please complete all 4 sentences (2 citations + 2 recommendations)!';
+    return;
+  }
+  
+  const correct = values.map(v => v === 'correct');
+  
+  selects.forEach((id, index) => {
+    document.getElementById(id).className = correct[index] ? 'correct' : 'incorrect';
+  });
+  
+  const allCorrect = correct.every(v => v);
+  
+  const feedback = document.getElementById('feedbackEx5');
+  if (allCorrect) {
+    feedback.className = 'feedback good show';
+    feedback.textContent = '🎉 Outstanding! Full report with 2 complete citation+recommendation pairs! Issue 1: survey citation + specific solution. Issue 2: feedback citation + specific solution!';
+    this.disabled = true;
+    updateProgress(5);
+  } else {
+    feedback.className = 'feedback bad show';
+    feedback.textContent = '❌ Check both pairs. Issue 1: "According to" + "around two-thirds (68%)" + "Based on these findings," + hire staff. Issue 2: "Comments from" + "show that" + "Based on this feedback," + redesign with instructions.';
+  }
+});
+</script>
+
+</body>
+</html>
