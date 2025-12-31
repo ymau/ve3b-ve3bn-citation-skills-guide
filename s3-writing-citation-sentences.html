@@ -535,20 +535,20 @@ p{margin:0 0 1rem;line-height:1.6;}
           <span>the customer satisfaction survey</span>
           <select id="ex1_part2">
             <option value="">-- select --</option>
-            <option value="correct">(December 2025),</option>
-            <option value="wrong1">(last year),</option>
+            <option value="correct">conducted in December 2025,</option>
+            <option value="wrong1">conducted last year,</option>
             <option value="wrong2">recently,</option>
           </select>
           <select id="ex1_part3">
             <option value="">-- select --</option>
             <option value="correct">slightly more than four-fifths</option>
-            <option value="wrong1">most customers</option>
+            <option value="wrong1">many customers</option>
             <option value="wrong2">a lot of people</option>
           </select>
           <select id="ex1_part4">
             <option value="">-- select --</option>
             <option value="correct">(85%)</option>
-            <option value="wrong1">(around 85%)</option>
+            <option value="wrong1">(around 80%)</option>
             <option value="wrong2">(85 percent)</option>
           </select>
           <span>of the customers were unhappy with waiting time.</span>
@@ -576,7 +576,7 @@ p{margin:0 0 1rem;line-height:1.6;}
         <h4>📊 Survey Data</h4>
         <div class="data-item"><strong>Source:</strong> Staff satisfaction survey</div>
         <div class="data-item"><strong>Date:</strong> November 2025</div>
-        <div class="data-item"><strong>Finding:</strong> 66% - want more training opportunities</div>
+        <div class="data-item"><strong>Finding:</strong> 64% - want more training opportunities</div>
       </div>
 
       <div class="sentence-builder">
@@ -592,7 +592,7 @@ p{margin:0 0 1rem;line-height:1.6;}
           <select id="ex2_part2">
             <option value="">-- select --</option>
             <option value="wrong1">conducted recently,</option>
-            <option value="correct">(November 2025),</option>
+            <option value="correct">conducted in November 2025,</option>
             <option value="wrong2">last month,</option>
           </select>
           <select id="ex2_part3">
@@ -603,8 +603,8 @@ p{margin:0 0 1rem;line-height:1.6;}
           </select>
           <select id="ex2_part4">
             <option value="">-- select --</option>
-            <option value="wrong1">(66 percent)</option>
-            <option value="correct">(66%)</option>
+            <option value="wrong1">(64 percent)</option>
+            <option value="correct">(64%)</option>
             <option value="wrong2">(about 66%)</option>
           </select>
           <span>of our staff want more training opportunities.</span>
@@ -752,20 +752,20 @@ p{margin:0 0 1rem;line-height:1.6;}
           <span>the hotel guest survey</span>
           <select id="ex5_part2">
             <option value="">-- select --</option>
-            <option value="correct">(October 2025),</option>
+            <option value="correct">conducted in October 2025,</option>
             <option value="wrong1">conducted recently,</option>
             <option value="wrong2">last month,</option>
           </select>
           <select id="ex5_part3">
             <option value="">-- select --</option>
-            <option value="correct">seven out of ten</option>
+            <option value="correct">nearly seven-tenths</option>
             <option value="wrong1">most guests</option>
             <option value="wrong2">many customers</option>
           </select>
           <select id="ex5_part4">
             <option value="">-- select --</option>
-            <option value="correct">(70%)</option>
-            <option value="wrong1">(70 percent)</option>
+            <option value="correct">(69%)</option>
+            <option value="wrong1">(69 percent)</option>
             <option value="wrong2">(about 70%)</option>
           </select>
           <span>of guests were satisfied with room cleanliness.</span>
@@ -791,7 +791,7 @@ p{margin:0 0 1rem;line-height:1.6;}
           <select id="ex5_part6">
             <option value="">-- select --</option>
             <option value="correct">show that</option>
-            <option value="wrong1">indicate that</option>
+            <option value="wrong1">indicating that</option>
             <option value="wrong2">revealed that</option>
           </select>
           <span>guests</span>
@@ -1002,7 +1002,7 @@ document.getElementById('checkEx2')?.addEventListener('click', function() {
   const feedback = document.getElementById('feedbackEx2');
   if (allCorrect) {
     feedback.className = 'feedback good show';
-    feedback.textContent = '🎉 Excellent! You used "Based on" + date "(November 2025)" + "around two-thirds (66%)" correctly!';
+    feedback.textContent = '🎉 Excellent! You used "Based on" + date "(November 2025)" + "around two-thirds (64%)" correctly!';
     this.disabled = true;
     updateProgress(2);
   } else {
